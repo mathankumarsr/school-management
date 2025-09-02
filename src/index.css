@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+:root {
+  --color-primary: #2563EB;   /* blue-600 */
+  --color-primary-light: #3B82F6; /* blue-500 */
+  --color-primary-dark: #1D4ED8;  /* blue-700 */
+
+  --color-secondary: #004081;   /* purple-600 */
+  --color-secondary-light: #16518d; /* purple-500 */
+  --color-secondary-dark: #00366c;  /* purple-700 */
+
+  --color-accent: #CDD5E9;   /* amber-500 */
+  --color-accent-light: #d2d8e5; /* amber-400 */
+  --color-accent-dark: #b0c0e8;  /* amber-700 */
+}
