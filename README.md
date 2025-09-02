@@ -1,6 +1,8 @@
 🏫 School Management App
 
-A full-stack School Management System built with React (TypeScript) on the frontend and (backend stack here —  Python and Django, etc.), designed to streamline student admissions, staff management, attendance, and communication.
+A full-stack School Management System built with React (TypeScript) on the frontend and (backend stack here —  Python and Django, etc.), designed to streamline student 
+admissions, staff management, attendance, and communication.
+
 
 🚀 Features
 
@@ -20,6 +22,7 @@ A full-stack School Management System built with React (TypeScript) on the front
 
 📱 Responsive UI – works on desktop and mobile
 
+
 🛠 Tech Stack
 Frontend
 
@@ -37,16 +40,19 @@ Python & Django
 
 PostgreSQL for database
 
+
 ⚡ Getting Started
 Prerequisites
 
 Node.js >= 18
 
+
 👨‍💻 Contributors
 
 Mathan Kumar (Frontend Developer)
 
-=Abdul Jelani (Backend)
+Abdul Jelani (Backend)
+
 
 📜 License
 
