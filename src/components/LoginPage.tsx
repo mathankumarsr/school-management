@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Eye, EyeOff, User, Lock } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../store';
+import { useLoginMutation } from '../api/authApi';
+import { setCredentials } from '../features/authSlice';
 
 const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [login, { isLoading }] = useLoginMutation();
     const [currentView, setCurrentView] = useState('login'); // 'login', 'forgot', 'otp', 'reset'
     const [formData, setFormData] = useState({
         username: '',
@@ -29,6 +31,8 @@ const LoginPage = () => {
         contactInfo: '',
         message: ''
     });
+    const [errors, setErrors] = useState<{ username?: string; password?: string }>({});
+
 
     const handleContactAdminChange = (e: any) => {
         const { name, value } = e.target;
@@ -56,6 +60,8 @@ const LoginPage = () => {
             ...prev,
             [name]: value
         }));
+        setErrors({ ...errors, [e.target.name]: "" });
+
 
         // Password validation for new password
         if (name === 'newPassword') {
@@ -67,19 +73,29 @@ const LoginPage = () => {
         }
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Login attempt:', formData);
-
-        // fake check
-        if (formData.username === "admin" && formData.password === "1234") {
-            dispatch(login());
-            navigate("/");
-        } else {
+        try {
+            const result = await login(formData).unwrap(); // call API
+            dispatch(setCredentials(result)); // save token + user
+            navigate("/"); // redirect
+        } catch (err) {
             alert("Invalid credentials");
         }
+    };
 
-        // Handle login logic here
+    const validateForm = () => {
+        const newErrors: { username?: string; password?: string } = {};
+        if (!formData.username.trim()) newErrors.username = "Username is required";
+        if (!formData.password.trim()) newErrors.password = "Password is required";
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const onSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+        handleSubmit(e); // send data to parent login handler
     };
 
     const handleForgotPassword = () => {
@@ -140,9 +156,6 @@ const LoginPage = () => {
                     {/* Left Side - Illustration */}
                     <div className="lg:w-1/2 bg-[#CDD5E9] p-8 lg:p-10 flex items-center justify-center relative">
                         <img src='/loginBg.svg' alt='login' className='w-full' />
-
-
-
                     </div>
 
                     {/* Right Side - Login Form */}
@@ -163,69 +176,77 @@ const LoginPage = () => {
                                     </div>
 
                                     <div className="space-y-6">
-                                        {/* Username Field */}
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                User Name
-                                            </label>
-                                            <div className="relative">
-                                                <input
-                                                    type="text"
-                                                    name="username"
-                                                    value={formData.username}
-                                                    onChange={handleInputChange}
-                                                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors pl-10"
-                                                    placeholder="Enter your username"
-                                                    required
-                                                />
-                                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                                            </div>
-                                        </div>
+                                        <form onSubmit={onSubmit} className="space-y-6">
 
-                                        {/* Password Field */}
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                Password
-                                            </label>
-                                            <div className="relative">
-                                                <input
-                                                    type={showPassword ? "text" : "password"}
-                                                    name="password"
-                                                    value={formData.password}
-                                                    onChange={handleInputChange}
-                                                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors pl-10 pr-10"
-                                                    placeholder="Enter your password"
-                                                    required
-                                                />
-                                                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                                            {/* Username Field */}
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                    User Name
+                                                </label>
+                                                <div className="relative">
+                                                    <input
+                                                        type="text"
+                                                        name="username"
+                                                        value={formData.username}
+                                                        onChange={handleInputChange}
+                                                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors pl-10"
+                                                        placeholder="Enter your username"
+                                                        required
+                                                    />
+                                                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                                                </div>
+                                                {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
+
+                                            </div>
+
+                                            {/* Password Field */}
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                    Password
+                                                </label>
+                                                <div className="relative">
+                                                    <input
+                                                        type={showPassword ? "text" : "password"}
+                                                        name="password"
+                                                        value={formData.password}
+                                                        onChange={handleInputChange}
+                                                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors pl-10 pr-10"
+                                                        placeholder="Enter your password"
+                                                        required
+                                                    />
+                                                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setShowPassword(!showPassword)}
+                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                                    >
+                                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                                    </button>
+                                                </div>
+                                                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+
+                                            </div>
+
+                                            {/* Forgot Password */}
+                                            <div className="text-left">
                                                 <button
                                                     type="button"
-                                                    onClick={() => setShowPassword(!showPassword)}
-                                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                                    onClick={handleForgotPassword}
+                                                    className="text-sm text-gray-600 hover:text-blue-600 underline"
                                                 >
-                                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                                    Forgot Password ?
                                                 </button>
                                             </div>
-                                        </div>
 
-                                        {/* Forgot Password */}
-                                        <div className="text-left">
+                                            {/* Submit Button */}
                                             <button
-                                                type="button"
-                                                onClick={handleForgotPassword}
-                                                className="text-sm text-gray-600 hover:text-blue-600 underline"
+                                                type="submit"
+                                                disabled={isLoading}
+                                                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
                                             >
-                                                Forgot Password ?
+                                                {isLoading ? "Logging in..." : "Login"}
                                             </button>
-                                        </div>
-
-                                        {/* Submit Button */}
-                                        <button
-                                            onClick={handleSubmit}
-                                            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
-                                        >
-                                            Submit
-                                        </button>
+                                        </form>
                                     </div>
 
                                     {/* Additional Options */}

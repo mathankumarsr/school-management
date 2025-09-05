@@ -1,33 +1,15 @@
 // src/store.ts
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-interface AuthState {
-  isAuthenticated: boolean;
-}
-
-const initialState: AuthState = {
-  isAuthenticated: false,
-};
-
-const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    login: (state) => {
-      state.isAuthenticated = true;
-    },
-    logout: (state) => {
-      state.isAuthenticated = false;
-    },
-  },
-});
-
-export const { login, logout } = authSlice.actions;
+import { apiSlice } from "./api/apiSlice";
+import authReducer from "./features/authSlice";
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: authReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

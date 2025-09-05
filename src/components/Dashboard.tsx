@@ -63,7 +63,7 @@ const Dashboard = () => {
         className?: string;
     }
     const ChartCard: React.FC<ChartCardProps> = ({ title, children, className = "" }) => (
-        <div className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ${className}`}>
+        <div className={`bg-white rounded-2xl p-6 shadow-md border border-gray-100 ${className}`}>
             <h3 className="text-lg font-semibold text-gray-800 mb-4 whitespace-nowrap">{title}</h3>
             {children}
         </div>

@@ -163,7 +163,7 @@ const Admission = () => {
   };
 
   const renderAdmissionTable = () => (
-    <div className="bg-white rounded-lg shadow-sm border">
+    <div className="bg-white rounded-lg shadow-md border border-gray-100 ">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-gray-50">
