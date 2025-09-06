@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../api/authApi';
 import { setCredentials } from '../features/authSlice';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const LoginPage = () => {
                 contactInfo: '',
                 message: ''
             });
-            alert('Your request has been sent to the administrator.');
+            toast.success('Your request has been sent to the administrator.');
         }
     }
 
@@ -76,11 +77,12 @@ const LoginPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const result = await login(formData).unwrap(); // call API
+            const payload = { username: formData.username, password: formData.password };
+            const result = await login(payload).unwrap(); // call API
             dispatch(setCredentials(result)); // save token + user
-            navigate("/"); // redirect
+            navigate("/");
         } catch (err) {
-            alert("Invalid credentials");
+            toast.error("Invalid credentials");
         }
     };
 
@@ -131,9 +133,9 @@ const LoginPage = () => {
                 confirmPassword: ''
             });
             setCurrentView('login');
-            alert('Password reset successfully! Please login with your new password.');
+            toast.success('Password reset successfully! Please login with your new password.');
         } else {
-            alert('Please ensure all password requirements are met and passwords match.');
+            toast.error('Please ensure all password requirements are met and passwords match.');
         }
     };
 
@@ -154,7 +156,7 @@ const LoginPage = () => {
             <div className="w-full max-w-full md:max-w-[80%] bg-white rounded-3xl shadow-2xl overflow-hidden">
                 <div className="flex flex-col lg:flex-row">
                     {/* Left Side - Illustration */}
-                    <div className="lg:w-1/2 bg-[#CDD5E9] p-8 lg:p-10 flex items-center justify-center relative">
+                    <div className="lg:w-1/2 bg-[#CDD5E9] p-8 lg:p-10 hidden lg:flex items-center justify-center relative">
                         <img src='/loginBg.svg' alt='login' className='w-full' />
                     </div>
 
