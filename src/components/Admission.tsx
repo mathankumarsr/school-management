@@ -1,53 +1,35 @@
-import React, { useState } from 'react';
-import { 
-  Plus, 
-  FileText, 
-  CreditCard, 
-  MoreVertical, 
-  Edit, 
-  Trash2, 
-  Printer, 
+import { useState } from 'react';
+import {
+  Plus,
+  FileText,
+  CreditCard,
+  MoreVertical,
+  Edit,
+  Trash2,
+  Printer,
   Eye,
   ArrowLeft,
   Save,
   X
 } from 'lucide-react';
+import { useAddAdmissionMutation, useDeleteAdmissionMutation, useGetAdmissionByIdQuery, useGetAdmissionsQuery, useLazyGetAdmissionByIdQuery, useUpdateAdmissionMutation } from '../api/admissionsApi';
+import { toast } from 'react-toastify';
 
 const Admission = () => {
   const [activeTab, setActiveTab] = useState('preadmission');
+  const [addAdmission, { isLoading }] = useAddAdmissionMutation();
+  const { data: students = [], isLoading: isGetLoading, isError } = useGetAdmissionsQuery();
+
+  const [updateAdmission] = useUpdateAdmissionMutation();
+  const [deleteAdmission] = useDeleteAdmissionMutation();
+  const [triggerGetAdmissionById] = useLazyGetAdmissionByIdQuery();
+
+  const [readOnly, setReadOnly] = useState(false);
+
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showDropdown, setShowDropdown] = useState(null);
-  const [students, setStudents] = useState([
-    {
-      id: 1,
-      admissionNumber: 'ADM001',
-      studentName: 'Rajesh Kumar',
-      dob: '2010-05-15',
-      prevMarkPercentage: '85%',
-      community: 'OBC',
-      parentsName: 'Suresh Kumar'
-    },
-    {
-      id: 2,
-      admissionNumber: 'ADM002',
-      studentName: 'Priya Sharma',
-      dob: '2011-08-22',
-      prevMarkPercentage: '92%',
-      community: 'General',
-      parentsName: 'Amit Sharma'
-    },
-    {
-      id: 3,
-      admissionNumber: 'ADM003',
-      studentName: 'Karthik Reddy',
-      dob: '2010-12-10',
-      prevMarkPercentage: '78%',
-      community: 'SC',
-      parentsName: 'Venkat Reddy'
-    }
-  ]);
-
   const [formData, setFormData] = useState({
+    id: null,
     // Student Basic Info
     studentName: '',
     dob: '',
@@ -58,13 +40,13 @@ const Admission = () => {
     community: '',
     motherTongue: '',
     nationality: '',
-    
+
     // Academic Info
     previousSchool: '',
     previousClass: '',
     prevMarkPercentage: '',
     admissionClass: '',
-    
+
     // Parent/Guardian Info
     fatherName: '',
     fatherOccupation: '',
@@ -74,13 +56,13 @@ const Admission = () => {
     motherOccupation: '',
     motherPhone: '',
     motherEmail: '',
-    
+
     // Address
     address: '',
     city: '',
     state: '',
     pincode: '',
-    
+
     // Emergency Contact
     emergencyContactName: '',
     emergencyContactPhone: '',
@@ -95,68 +77,125 @@ const Admission = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const newStudent = {
-      id: students.length + 1,
-      admissionNumber: `ADM${String(students.length + 1).padStart(3, '0')}`,
-      studentName: formData.studentName,
+
+    const payload = {
+      student_name: formData.studentName,
       dob: formData.dob,
-      prevMarkPercentage: formData.prevMarkPercentage,
+      gender: formData.gender,
+      blood_group: formData.bloodGroup,
+      aadhar_number: formData.aadharNumber,
+      religion: formData.religion,
       community: formData.community,
-      parentsName: formData.fatherName
+      mother_tongue: formData.motherTongue,
+      nationality: formData.nationality,
+      previous_school: formData.previousSchool,
+      previous_class: formData.previousClass,
+      prev_mark_percentage: formData.prevMarkPercentage,
+      admission_class: formData.admissionClass,
+      father_name: formData.fatherName,
+      father_occupation: formData.fatherOccupation,
+      father_phone: formData.fatherPhone,
+      father_email: formData.fatherEmail,
+      mother_name: formData.motherName,
+      mother_occupation: formData.motherOccupation,
+      mother_phone: formData.motherPhone,
+      mother_email: formData.motherEmail,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      pincode: formData.pincode,
+      emergency_contact_name: formData.emergencyContactName,
+      emergency_contact_phone: formData.emergencyContactPhone,
+      emergency_contact_relation: formData.emergencyContactRelation,
     };
-    
-    setStudents(prev => [...prev, newStudent]);
-    setFormData({
-      studentName: '',
-      dob: '',
-      gender: '',
-      bloodGroup: '',
-      aadharNumber: '',
-      religion: '',
-      community: '',
-      motherTongue: '',
-      nationality: '',
-      previousSchool: '',
-      previousClass: '',
-      prevMarkPercentage: '',
-      admissionClass: '',
-      fatherName: '',
-      fatherOccupation: '',
-      fatherPhone: '',
-      fatherEmail: '',
-      motherName: '',
-      motherOccupation: '',
-      motherPhone: '',
-      motherEmail: '',
-      address: '',
-      city: '',
-      state: '',
-      pincode: '',
-      emergencyContactName: '',
-      emergencyContactPhone: '',
-      emergencyContactRelation: ''
-    });
-    setShowCreateForm(false);
+
+    try {
+      let response;
+      if (formData.id) {
+        response = await updateAdmission({ id: formData.id, data: payload }).unwrap();
+      } else {
+        response = await addAdmission(payload).unwrap();
+      }
+      toast.success(response?.message || "Student added successfully");
+      setFormData({
+        id: null,
+        studentName: '',
+        dob: '',
+        gender: '',
+        bloodGroup: '',
+        aadharNumber: '',
+        religion: '',
+        community: '',
+        motherTongue: '',
+        nationality: '',
+        previousSchool: '',
+        previousClass: '',
+        prevMarkPercentage: '',
+        admissionClass: '',
+        fatherName: '',
+        fatherOccupation: '',
+        fatherPhone: '',
+        fatherEmail: '',
+        motherName: '',
+        motherOccupation: '',
+        motherPhone: '',
+        motherEmail: '',
+        address: '',
+        city: '',
+        state: '',
+        pincode: '',
+        emergencyContactName: '',
+        emergencyContactPhone: '',
+        emergencyContactRelation: ''
+      });
+      setShowCreateForm(false);
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to add student");
+    }
   };
 
-  const handleDropdownAction = (action, studentId) => {
+  if (isGetLoading) return <p className="text-gray-500">Loading students...</p>;
+  if (isError) return <p className="text-red-500">Failed to load students</p>;
+
+  const handleDropdownAction = async (action: string, studentId: number) => {
     setShowDropdown(null);
-    
-    switch(action) {
-      case 'edit':
-        console.log('Edit student:', studentId);
+
+    switch (action) {
+      case "edit": {
+        // fetch student by id & populate form
+        const { data } = await triggerGetAdmissionById(studentId).unwrap();
+        if (data) setFormData(data);
+        setShowCreateForm(true); // enable editing form
         break;
-      case 'delete':
-        setStudents(prev => prev.filter(student => student.id !== studentId));
+      }
+
+      case "delete": {
+        try {
+          await deleteAdmission(studentId).unwrap();
+          toast.success("Student deleted successfully");
+        } catch (err) {
+          toast.error("Failed to delete student");
+        }
         break;
-      case 'print':
-        console.log('Print student:', studentId);
+      }
+
+      case "view": {
+        // fetch student & show in read-only mode
+        const { data } = await triggerGetAdmissionById(studentId).unwrap();
+        if (data) setFormData(data);
+        setReadOnly(true); // disable editing in form
+        setShowCreateForm(true);
         break;
-      case 'view':
-        console.log('View student:', studentId);
+      }
+
+      case "print": {
+        console.log("Print student:", studentId);
+        // You can integrate with a print library
         break;
+      }
+
       default:
         break;
     }
@@ -182,28 +221,29 @@ const Admission = () => {
             {students.map((student, index) => (
               <tr key={student.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{index + 1}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{student.admissionNumber}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{student.studentName}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{student.dob}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{student.prevMarkPercentage}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{student.community}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{student.parentsName}</td>
+                <td className="border px-4 py-2">{student.admission_number}</td>
+                <td className="border px-4 py-2">{student.student_name}</td>
+                <td className="border px-4 py-2">{student.dob}</td>
+                <td className="border px-4 py-2">{student.prev_mark_percentage}%</td>
+                <td className="border px-4 py-2">{student.community}</td>
+                <td className="border px-4 py-2">{student.father_name}</td>
+
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   <div className="flex items-center gap-2">
-                    <button 
+                    <button
                       className="text-green-600 hover:text-green-800 p-1 rounded"
                       title="Create Admission"
                     >
                       <FileText size={16} />
                     </button>
-                    <button 
+                    <button
                       className="text-blue-600 hover:text-blue-800 p-1 rounded"
                       title="Billing"
                     >
                       <CreditCard size={16} />
                     </button>
                     <div className="relative">
-                      <button 
+                      <button
                         onClick={() => setShowDropdown(showDropdown === student.id ? null : student.id)}
                         className="text-gray-600 hover:text-gray-800 p-1 rounded"
                       >
@@ -212,28 +252,28 @@ const Admission = () => {
                       {showDropdown === student.id && (
                         <div className="absolute right-0 mt-1 w-32 bg-white rounded-md shadow-lg border z-10">
                           <div className="py-1">
-                            <button 
+                            <button
                               onClick={() => handleDropdownAction('edit', student.id)}
                               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                             >
                               <Edit size={14} />
                               Edit
                             </button>
-                            <button 
+                            <button
                               onClick={() => handleDropdownAction('view', student.id)}
                               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                             >
                               <Eye size={14} />
                               View
                             </button>
-                            <button 
+                            <button
                               onClick={() => handleDropdownAction('print', student.id)}
                               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                             >
                               <Printer size={14} />
                               Print
                             </button>
-                            <button 
+                            <button
                               onClick={() => handleDropdownAction('delete', student.id)}
                               className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full text-left"
                             >
@@ -258,7 +298,7 @@ const Admission = () => {
     <div className="bg-white rounded-lg shadow-sm border">
       <div className="p-6 border-b">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => setShowCreateForm(false)}
             className="text-gray-600 hover:text-gray-800"
           >
@@ -267,7 +307,7 @@ const Admission = () => {
           <h2 className="text-xl font-semibold text-gray-800">Create New Admission</h2>
         </div>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="p-6">
         {/* Student Basic Information */}
         <div className="mb-8">
@@ -555,7 +595,7 @@ const Admission = () => {
                 name="address"
                 value={formData.address}
                 onChange={handleInputChange}
-                rows="3"
+                rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -651,7 +691,7 @@ const Admission = () => {
             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2"
           >
             <Save size={16} />
-            Save Admission
+            {isLoading ? "Loading" : "Save Admission"}
           </button>
         </div>
       </form>
@@ -663,7 +703,7 @@ const Admission = () => {
       return renderCreateForm();
     }
 
-    switch(activeTab) {
+    switch (activeTab) {
       case 'preadmission':
         return renderAdmissionTable();
       case 'admission-enquiry':
@@ -694,31 +734,28 @@ const Admission = () => {
             <nav className="flex space-x-8 px-6" aria-label="Tabs">
               <button
                 onClick={() => setActiveTab('preadmission')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'preadmission'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'preadmission'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
               >
                 Pre-Admission
               </button>
               <button
                 onClick={() => setActiveTab('admission-enquiry')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'admission-enquiry'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'admission-enquiry'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
               >
                 Admission Enquiry
               </button>
               <button
                 onClick={() => setActiveTab('online-enquiry')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === 'online-enquiry'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'online-enquiry'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
               >
                 Online Enquiry
               </button>
@@ -730,7 +767,7 @@ const Admission = () => {
       {/* Add New Admission Button */}
       {!showCreateForm && (
         <div className="mb-6">
-          <button 
+          <button
             onClick={() => setShowCreateForm(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
           >
@@ -747,8 +784,8 @@ const Admission = () => {
 
       {/* Click outside to close dropdown */}
       {showDropdown && (
-        <div 
-          className="fixed inset-0 z-0" 
+        <div
+          className="fixed inset-0 z-0"
           onClick={() => setShowDropdown(null)}
         />
       )}
