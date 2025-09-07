@@ -57,7 +57,7 @@ const Layout = () => {
                     <span className="text-xl font-bold">SV SCHOOL</span>
                 </div>
 
-                <nav className="space-y-2">
+                <nav className="space-y-2 h-[80vh] overflow-y-auto scrollbar-hide">
                     {sidebarItems.map((item, index) => (
                         <div
                             key={index}

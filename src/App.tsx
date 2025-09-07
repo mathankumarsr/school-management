@@ -7,6 +7,7 @@ import Admission from "./components/Admission";
 import Billing from "./components/Billing";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SettingsPage from "./components/Settings";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="admission" element={<Admission />} />
           <Route path="fees" element={<Billing />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
       <ToastContainer
