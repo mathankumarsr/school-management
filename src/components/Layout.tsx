@@ -51,7 +51,7 @@ const Layout = () => {
     return (
         <div className="flex h-screen bg-gray-50">
             {/* Sidebar */}
-            <div className="w-64 bg-blue-600 text-white p-6 overflow-auto scrollbar-hide">
+            <div className=" bg-blue-600 text-white p-6 overflow-auto scrollbar-hide">
                 <div className="flex items-center mb-8">
                     <div className="w-8 h-8 bg-white rounded-full mr-3"></div>
                     <span className="text-xl font-bold">SV SCHOOL</span>

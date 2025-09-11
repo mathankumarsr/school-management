@@ -12,6 +12,7 @@ import Students from "./components/Students";
 import StudentProfile from "./components/StudentProfile";
 import SettingHome from "./components/Settings/SettingHome";
 import SettingsTabs from "./components/SettingsTabs";
+import EmployeeConfig from "./components/Settings/EmployeeConfig";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="students/profile" element={<StudentProfile />} />
           <Route path="settings-home" element={<SettingHome />} />
           <Route path="school-config" element={<SettingsTabs />} />
+          <Route path="employee-config" element={<EmployeeConfig />} />
         </Route>
       </Routes>
       <ToastContainer
