@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Edit, Trash2, Plus } from 'lucide-react';
+import SettingsTabs from './SettingsTabs';
 
 interface Employee {
   id: number;
@@ -191,10 +192,11 @@ const EmployeeConfig: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="">
+    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+      <div className="mb-3">
+        <SettingsTabs />
 
-        <div className="flex gap-2 w-full">
+        <div className="flex gap-2 w-full mt-3">
           {/* Left Side - Employee Table */}
           <div className="bg-white rounded-lg shadow-md p-6 w-[65%]">
             <div className="flex justify-between items-center mb-6">

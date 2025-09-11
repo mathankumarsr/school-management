@@ -4,24 +4,32 @@ import {
     Calendar, BookOpen, Award, Activity, FileText,
     Bell, Shield, Palette, Globe, Database, Mail
 } from 'lucide-react';
-import SchoolConfig from './Settings/SchoolConfig';
-import ClassConfig from './Settings/ClassConfig/ClassConfig';
+import SchoolConfig from './SchoolConfig';
+import ClassConfig from './ClassConfig/ClassConfig';
+import { useNavigate } from 'react-router-dom';
 
 const SettingsTabs = () => {
     const [activeTab, setActiveTab] = useState('school-config');
+    const navigate = useNavigate()
 
     const settingsTabs = [
         {
             id: 'school-config',
             label: 'School Configuration',
             icon: School,
-            description: "Configure your school's basic information and settings"
+            pathname: "/school-config"
         },
         {
             id: 'classes',
             label: 'Classes & Sections',
             icon: Users,
-            description: 'Manage classes, sections, and academic structure'
+            pathname: "/class-config"
+        },
+        {
+            id: 'employees',
+            label: 'Employees',
+            icon: Users,
+            pathname: "/employee-config"
         },
         {
             id: 'admission',
@@ -40,12 +48,6 @@ const SettingsTabs = () => {
             label: 'Students',
             icon: Users,
             description: 'Student management and profile settings'
-        },
-        {
-            id: 'employees',
-            label: 'Employees',
-            icon: Users,
-            description: 'Staff and teacher management settings'
         },
         {
             id: 'exams',
@@ -315,12 +317,10 @@ const SettingsTabs = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <div className=" ">
+            <div className="">
                 <div className="bg-white rounded-lg shadow-sm">
                     {/* Header */}
-
-
                     <div className="flex flex-col">
                         <div className="border-b border-gray-200">
                             <nav className="flex space-x-6 overflow-x-auto scrollbar-hide px-4">
@@ -329,8 +329,8 @@ const SettingsTabs = () => {
                                     return (
                                         <button
                                             key={tab.id}
-                                            onClick={() => setActiveTab(tab.id)}
-                                            className={`flex whitespace-nowrap cursor-pointer items-center space-x-2 py-3 text-sm font-medium transition-colors border-b-2 ${activeTab === tab.id
+                                            onClick={() => navigate(tab.pathname)}
+                                            className={`flex whitespace-nowrap cursor-pointer items-center space-x-2 py-3 text-sm font-medium transition-colors border-b-2 ${window.location.pathname === tab.pathname
                                                 ? 'border-blue-600 text-blue-600'
                                                 : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
                                                 }`}
@@ -343,31 +343,6 @@ const SettingsTabs = () => {
                             </nav>
                         </div>
 
-                        {/* Main Content */}
-                        <div className="flex-1">
-                            <div className="p-6">
-                                <div className="mb-6 text-center">
-                                    <h2 className="text-2xl font-bold text-gray-900">
-                                        {settingsTabs.find(tab => tab.id === activeTab)?.label}
-                                    </h2>
-                                    {/* <p className="text-gray-600 mt-1">
-                                        {settingsTabs.find(tab => tab.id === activeTab)?.description}
-                                    </p> */}
-                                </div>
-
-                                {renderTabContent()}
-
-                                {/* Save Button */}
-                                {/* <div className="mt-8 flex justify-end space-x-3">
-                                    <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
-                                        Cancel
-                                    </button>
-                                    <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-                                        Save Changes
-                                    </button>
-                                </div> */}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

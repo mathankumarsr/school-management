@@ -36,6 +36,7 @@ import {
   useDeleteClassMutation,
 } from '../../../api/classApi';
 import type { ClassData, CreateClassRequest, ApiError } from '../../../utils/types';
+import SettingsTabs from '../SettingsTabs';
 
 export const ClassConfig: React.FC = () => {
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -170,7 +171,7 @@ export const ClassConfig: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium">Class Management</h3>
+       <SettingsTabs />
         <button
           onClick={handleAddNew}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"

@@ -42,6 +42,7 @@
 // export default SchoolConfig
 import { useState, useRef, useEffect } from 'react';
 import { Upload, Save, Loader2, X, Building2, Camera, Phone, Mail, Globe, User, Calendar, MapPin } from 'lucide-react';
+import SettingsTabs from './SettingsTabs';
 
 // Import your RTK Query hooks (replace with actual imports)
 // import {
@@ -315,16 +316,9 @@ const SchoolConfig = () => {
   }
   
   return (
-    <div className="max-w-7xl mx-auto bg-white min-h-screen">
-      {/* Header */}
-      <div className="mb-8">
-        {/* <div className="flex items-center space-x-3 mb-4">
-          <Building2 className="h-10 w-10 text-blue-600" />
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">School Configuration</h1>
-            <p className="text-gray-600 mt-1">Configure your school's basic information and settings</p>
-          </div>
-        </div> */}
+    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+      <div className="mb-3">
+        <SettingsTabs />
         
         {/* Error Summary */}
         {Object.keys(errors).length > 0 && (

@@ -54,54 +54,54 @@ const SettingHome = () => {
             onClick={() => navigate("/school-config")}
           />
           <ConfigCard
-            icon={GraduationCap}
-            title="Teacher Configuration"
-            onClick={() => openModal('teacher-config')}
-          />
-          <ConfigCard
             icon={Users}
             title="Class Configuration"
-            onClick={() => openModal('class-config')}
+            onClick={() => navigate('class-config')}
+          />
+          <ConfigCard
+            icon={GraduationCap}
+            title="Empolyee Configuration"
+            onClick={() => navigate('teacher-config')}
           />
           <ConfigCard
             icon={Book}
             title="Subject Configuration"
-            onClick={() => openModal('subject-config')}
+            onClick={() => navigate('subject-config')}
           />
           <ConfigCard
             icon={UserPlus}
             title="Referral Configuration"
-            onClick={() => openModal('referral-config')}
+            onClick={() => navigate('referral-config')}
           />
           <ConfigCard
             icon={MapPin}
             title="Classroom Configuration"
-            onClick={() => openModal('classroom-config')}
+            onClick={() => navigate('classroom-config')}
           />
           <ConfigCard
             icon={FileText}
             title="Exam Configuration"
-            onClick={() => openModal('exam-config')}
+            onClick={() => navigate('exam-config')}
           />
           <ConfigCard
             icon={Award}
             title="Certificates Configuration"
-            onClick={() => openModal('certificates-config')}
+            onClick={() => navigate('certificates-config')}
           />
           <ConfigCard
             icon={Activity}
             title="Activities Configuration"
-            onClick={() => openModal('activities-config')}
+            onClick={() => navigate('activities-config')}
           />
           <ConfigCard
             icon={Calendar}
             title="Attendance Configuration"
-            onClick={() => openModal('attendance-config')}
+            onClick={() => navigate('attendance-config')}
           />
           <ConfigCard
             icon={MessageSquare}
             title="Message Configuration"
-            onClick={() => openModal('message-config')}
+            onClick={() => navigate('message-config')}
           />
         </div>
       </section>
