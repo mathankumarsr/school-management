@@ -42,7 +42,7 @@ const Layout = () => {
         { icon: Award, label: 'Certificates', path: '/certificate' },
         { icon: Activity, label: 'Activities', path: '/activities' },
         { icon: BarChart3, label: 'Reports', path: '/reports' },
-        { icon: Settings, label: 'Settings', path: '/settings' },
+        { icon: Settings, label: 'Settings', path: '/settings-home' },
         { icon: Ticket, label: 'Tickets', path: '/tickets' }
     ];
 

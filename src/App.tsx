@@ -7,10 +7,11 @@ import Admission from "./components/Admission";
 import Billing from "./components/Billing";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SettingsPage from "./components/Settings";
+import SettingsPage from "./components/SettingsTabs";
 import Students from "./components/Students";
 import StudentProfile from "./components/StudentProfile";
 import SettingHome from "./components/Settings/SettingHome";
+import SettingsTabs from "./components/SettingsTabs";
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
           <Route path="settings" element={<SettingsPage />} />
           <Route path="students" element={<Students />} />
           <Route path="students/profile" element={<StudentProfile />} />
-          <Route path="settingHome" element={<SettingHome />} />
+          <Route path="settings-home" element={<SettingHome />} />
+          <Route path="school-config" element={<SettingsTabs />} />
         </Route>
       </Routes>
       <ToastContainer

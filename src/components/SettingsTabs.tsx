@@ -7,7 +7,7 @@ import {
 import SchoolConfig from './Settings/SchoolConfig';
 import ClassConfig from './Settings/ClassConfig/ClassConfig';
 
-const SettingsPage = () => {
+const SettingsTabs = () => {
     const [activeTab, setActiveTab] = useState('school-config');
 
     const settingsTabs = [
@@ -375,4 +375,4 @@ const SettingsPage = () => {
     );
 };
 
-export default SettingsPage;
+export default SettingsTabs;
