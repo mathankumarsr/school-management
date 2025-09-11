@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SettingsPage from "./components/Settings";
 import Students from "./components/Students";
 import StudentProfile from "./components/StudentProfile";
+import SettingHome from "./components/Settings/SettingHome";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="settings" element={<SettingsPage />} />
           <Route path="students" element={<Students />} />
           <Route path="students/profile" element={<StudentProfile />} />
+          <Route path="settingHome" element={<SettingHome />} />
         </Route>
       </Routes>
       <ToastContainer
