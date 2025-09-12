@@ -16,6 +16,7 @@ import EmployeeConfig from "./components/Settings/EmployeeConfig";
 import SchoolConfig from "./components/Settings/SchoolConfig";
 import ClassConfig from "./components/Settings/ClassConfig/ClassConfig";
 import SettingClass from "./components/Settings/SettingClass";
+import FeesConfig from "./components/Settings/Feesconfig";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="class-config" element={<ClassConfig />} />
           <Route path="employee-config" element={<EmployeeConfig />} />
           <Route path="setting-class" element={<SettingClass />} />
+          <Route path="fees-config" element={<FeesConfig />} />
         </Route>
       </Routes>
       <ToastContainer
