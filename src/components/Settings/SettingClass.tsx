@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Download, Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import SettingsTabs from './SettingsTabs';
 
 const SettingClass = () => {
   const [classes, setClasses] = useState([
@@ -29,7 +30,7 @@ const SettingClass = () => {
   const [itemsPerPage] = useState(10);
 
   const classOptions = [
-    '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade', 
+    '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade',
     '6th Grade', '7th Grade', '8th Grade', '9th Grade', '10th Grade',
     '11th Grade', '12th Grade'
   ];
@@ -38,7 +39,7 @@ const SettingClass = () => {
 
   // Filter and paginate data
   const filteredClasses = useMemo(() => {
-    return classes.filter(item => 
+    return classes.filter(item =>
       item.class.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.section.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.capacity.toString().includes(searchTerm)
@@ -66,8 +67,8 @@ const SettingClass = () => {
 
     if (editingId) {
       // Edit existing class
-      setClasses(prev => prev.map(item => 
-        item.id === editingId 
+      setClasses(prev => prev.map(item =>
+        item.id === editingId
           ? { ...item, class: formData.class, section: formData.section, capacity: parseInt(formData.capacity) }
           : item
       ));
@@ -82,7 +83,7 @@ const SettingClass = () => {
       };
       setClasses(prev => [...prev, newClass]);
     }
-    
+
     handleClear();
   };
 
@@ -126,41 +127,48 @@ const SettingClass = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Class Configuration Management</h1>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+      <div className="mb-3">
+        <SettingsTabs />
+        <div className="flex flex-col-reverse xl:flex-row gap-2 w-full mt-3">
           {/* Left Side - Table */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-md">
+          <div className=" bg-white rounded-lg shadow-md w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={handleDownload}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    <Download size={16} />
-                    Download
-                  </button>
-                </div>
-                
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
+                <div className='font-semibold'>Class List</div>
+                <div className='flex gap-2 items-center'>
+                  <div className="relative">
+                    <Search
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500"
+                      size={16}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchTerm}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setCurrentPage(1); // reset pagination when searching
+                      }}
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={handleDownload}
+                      className="p-2 text-blue-500 hover:bg-blue-50 rounded-md transition-colors cursor-pointer"
+                      title="Download"
+                    >
+                      <Download size={18} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Table */}
-            <div className="overflow-x-auto">
+            <div className="overflow-auto h-[47.5vh] scrollbar-hide">
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
@@ -230,11 +238,11 @@ const SettingClass = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-6">
+          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%]">
+            <h2 className="text-lg font-semibold text-gray-800 mb-6">
               {editingId ? 'Edit Class' : 'Add New Class'}
             </h2>
-            
+
             <div className="space-y-4">
               {/* Class Dropdown */}
               <div>

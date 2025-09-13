@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Search, Download, Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import SettingsTabs from './SettingsTabs';
+import type { Fee } from '../../utils/types';
 
-const FeesConfig = () => {
-  const [fees, setFees] = useState([
+const SubjectConfig = () => {
+  const [fees, setFees] = useState<Fee[]>([
     { id: 1, class: '1st Grade', feeName: 'Tuition Fee', feeType: 'Term', term: '1', amount: 5000 },
     { id: 2, class: '1st Grade', feeName: 'Library Fee', feeType: 'Monthly', month: 'January', amount: 200 },
     { id: 3, class: '2nd Grade', feeName: 'Lab Fee', feeType: 'Yearly', year: '2024', amount: 1500 },
@@ -39,14 +40,6 @@ const FeesConfig = () => {
     '11th Grade', '12th Grade'
   ];
 
-  const feeTypeOptions = ['Term', 'Monthly', 'Yearly'];
-  const termOptions = ['1', '2', '3'];
-  const monthOptions = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  const yearOptions = ['2024', '2025', '2026', '2027', '2028'];
-
   // Filter and paginate data
   const filteredFees = useMemo(() => {
     return fees.filter(item =>
@@ -61,7 +54,7 @@ const FeesConfig = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedFees = filteredFees.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData(prev => {
       const newData = { ...prev, [field]: value };
 
@@ -144,7 +137,7 @@ const FeesConfig = () => {
     handleClear();
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData({
       class: item.class,
       feeName: item.feeName,
@@ -157,7 +150,7 @@ const FeesConfig = () => {
     setEditingId(item.id);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     if (window.confirm('Are you sure you want to delete this fee configuration?')) {
       setFees(prev => prev.filter(item => item.id !== id));
     }
@@ -185,15 +178,8 @@ const FeesConfig = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
-  };
-
-  const getFeeTypeDisplay = (item) => {
-    if (item.feeType === 'Term' && item.term) return `${item.feeType} ${item.term}`;
-    if (item.feeType === 'Monthly' && item.month) return item.month;
-    if (item.feeType === 'Yearly' && item.year) return item.year;
-    return item.feeType;
   };
 
   return (
@@ -202,11 +188,11 @@ const FeesConfig = () => {
         <SettingsTabs />
 
         <div className="flex flex-col-reverse xl:flex-row gap-2 w-full mt-3">
-          <div className=" bg-white rounded-lg shadow-md  w-full xl:w-[65%]">
+          <div className=" bg-white rounded-lg shadow-md w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-center gap-3">
-                <div className="font-semibold">Fees List</div>
+                <div className="font-semibold">Subject List</div>
                 <div className="flex gap-2 items-center">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
@@ -220,7 +206,7 @@ const FeesConfig = () => {
                   </div>
                   <button
                     onClick={handleDownload}
-                    className="p-2 text-blue-500 hover:bg-blue-50 rounded-md transition-colors"
+                    className="p-2 text-blue-500 hover:bg-blue-50 rounded-md transition-colors cursor-pointer"
                     title="Download"
                   >
                     <Download size={18} />
@@ -236,9 +222,8 @@ const FeesConfig = () => {
                   <tr>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[60px]">S.No</th>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[120px]">Class</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[150px]">Fees Name</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[120px]">Fee Type</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[100px]">Amount</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[150px]">Subject Name</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[120px]">Teacher Name</th>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-black min-w-[100px]">Action</th>
                   </tr>
                 </thead>
@@ -248,8 +233,7 @@ const FeesConfig = () => {
                       <td className="px-4 py-3 text-sm text-gray-900 min-w-[60px]">{startIndex + index + 1}</td>
                       <td className="px-4 py-3 text-sm text-gray-900 min-w-[120px]">{item.class}</td>
                       <td className="px-4 py-3 text-sm text-gray-900 min-w-[150px]">{item.feeName}</td>
-                      <td className="px-4 py-3 text-sm text-gray-900 min-w-[120px]">{getFeeTypeDisplay(item)}</td>
-                      <td className="px-4 py-3 text-sm text-gray-900 min-w-[100px]">₹{item.amount}</td>
+                      <td className="px-4 py-3 text-sm text-gray-900 min-w-[100px]">{item.feeName}</td>
                       <td className="px-4 py-3 text-sm min-w-[100px]">
                         <div className="flex items-center gap-2">
                           <button
@@ -304,7 +288,7 @@ const FeesConfig = () => {
           {/* Right Side - Form */}
           <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%] h-auto xl:h-[71vh] overflow-y-auto scrollbar-hide">
             <h2 className="text-xl font-semibold text-black mb-6">
-              {editingId ? 'Edit Fee' : 'Fee Configuration'}
+              {editingId ? 'Edit Subject' : 'Subject Configuration'}
             </h2>
 
             <div className="flex flex-row xl:flex-col flex-wrap gap-4 xl:gap-3">
@@ -338,92 +322,20 @@ const FeesConfig = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
-
-              {/* Fee Type Dropdown */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Fee Type <span className="text-red-500">*</span>
+                  Teacher Name <span className="text-red-500">*</span>
                 </label>
                 <select
-                  value={formData.feeType}
-                  onChange={(e) => handleInputChange('feeType', e.target.value)}
+                  value={formData.class}
+                  onChange={(e) => handleInputChange('class', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 >
-                  <option value="">Select Fee Type</option>
-                  {feeTypeOptions.map(option => (
+                  <option value="">Select Teacher</option>
+                  {classOptions.map(option => (
                     <option key={option} value={option}>{option}</option>
                   ))}
                 </select>
-              </div>
-
-              {/* Conditional Dropdowns */}
-              {formData.feeType === 'Term' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Term <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    value={formData.term}
-                    onChange={(e) => handleInputChange('term', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  >
-                    <option value="">Select Term</option>
-                    {termOptions.map(option => (
-                      <option key={option} value={option}>Term {option}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
-
-              {formData.feeType === 'Monthly' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Month <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    value={formData.month}
-                    onChange={(e) => handleInputChange('month', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  >
-                    <option value="">Select Month</option>
-                    {monthOptions.map(option => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
-
-              {formData.feeType === 'Yearly' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Year <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    value={formData.year}
-                    onChange={(e) => handleInputChange('year', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  >
-                    <option value="">Select Year</option>
-                    {yearOptions.map(option => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
-
-              {/* Amount Input */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Amount <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="number"
-                  value={formData.amount}
-                  onChange={(e) => handleInputChange('amount', e.target.value)}
-                  placeholder="Enter amount"
-                  min="1"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                />
               </div>
 
               {/* Action Buttons */}
@@ -449,4 +361,4 @@ const FeesConfig = () => {
   );
 };
 
-export default FeesConfig;
+export default SubjectConfig;

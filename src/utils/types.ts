@@ -46,3 +46,14 @@ export interface ApiError {
     errors?: Record<string, string[]>;
   };
 }
+
+export interface Fee {
+  id: number;
+  class: string;
+  feeName: string;
+  feeType: string;
+  amount: number;
+  term?: string;
+  month?: string;
+  year?: string;
+}

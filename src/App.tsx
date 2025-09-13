@@ -17,6 +17,8 @@ import SchoolConfig from "./components/Settings/SchoolConfig";
 import ClassConfig from "./components/Settings/ClassConfig/ClassConfig";
 import SettingClass from "./components/Settings/SettingClass";
 import FeesConfig from "./components/Settings/Feesconfig";
+import SubjectConfig from "./components/Settings/SubjectConfig";
+import ReferralConfig from "./components/Settings/ReferralConfig";
 
 function App() {
   return (
@@ -36,15 +38,17 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="admission" element={<Admission />} />
           <Route path="fees" element={<Billing />} />
-          <Route path="settings" element={<SettingsPage />} />
+          {/* <Route path="settings" element={<SettingsPage />} /> */}
           <Route path="students" element={<Students />} />
           <Route path="students/profile" element={<StudentProfile />} />
-          <Route path="settings-home" element={<SettingHome />} />
-          <Route path="school-config" element={<SchoolConfig />} />
-          <Route path="class-config" element={<ClassConfig />} />
-          <Route path="employee-config" element={<EmployeeConfig />} />
-          <Route path="setting-class" element={<SettingClass />} />
-          <Route path="fees-config" element={<FeesConfig />} />
+          <Route path="settings" element={<SettingHome />} />
+          <Route path="settings/school-config" element={<SchoolConfig />} />
+          {/* <Route path="class-config" element={<ClassConfig />} /> */}
+                    <Route path="settings/class-config" element={<SettingClass />} />
+          <Route path="settings/employee-config" element={<EmployeeConfig />} />
+          <Route path="settings/fees-config" element={<FeesConfig />} />
+          <Route path="settings/subject-config" element={<SubjectConfig />} />
+          <Route path="settings/referral-config" element={<ReferralConfig />} />
         </Route>
       </Routes>
       <ToastContainer

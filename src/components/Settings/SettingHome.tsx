@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Settings, Building2, GraduationCap, Users, Book, UserPlus, MapPin, FileText, Award, Activity, Calendar, MessageSquare, DollarSign, Shield, User, Globe, ChevronRight, Save, X, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { AdmissionConfigList, SchoolConfigList } from '../../utils/constant';
+import { useDispatch } from 'react-redux';
+import { updateSetting } from '../../features/settingsSlice';
 
 type ModalType = 'school-config' | 'teacher-config' | 'class-config' | 'subject-config' | 'referral-config' | 'classroom-config' | 'exam-config' | 'certificates-config' | 'activities-config' | 'attendance-config' | 'message-config' | 'fees-config' | 'admission-config' | 'staff-config' | 'security-config' | 'api-config';
 
@@ -25,6 +28,7 @@ interface FormFieldProps {
 const SettingHome = () => {
   const [activeModal, setActiveModal] = useState<ModalType | null>(null);
   const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const openModal = (modalType: ModalType) => {
     setActiveModal(modalType);
@@ -42,16 +46,31 @@ const SettingHome = () => {
     </div>
   );
 
+  const handleSettingsClick = (from='',path: string) => {
+    dispatch(updateSetting({ key: 'selectedSettingSection', value: from }));
+    navigate(path);
+  }
+
   return (
     <div className="flex-1 px-8 py-8">
       {/* School Configuration Section */}
       <section className="mb-12">
         <h2 className="text-lg font-semibold text-gray-800 mb-6">School Configuration</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <ConfigCard
+
+          {SchoolConfigList.map((config) => (
+            <ConfigCard
+              key={config.id}
+              icon={config.icon}
+              title={config.label}
+              onClick={() => handleSettingsClick("schoolConfig",config.pathname)}
+            />
+          ))}
+
+          {/* <ConfigCard
             icon={Building2}
             title="School Configuration"
-            onClick={() => navigate("/school-config")}
+            onClick={() => navigate("school-config")}
           />
           <ConfigCard
             icon={Users}
@@ -102,7 +121,7 @@ const SettingHome = () => {
             icon={MessageSquare}
             title="Message Configuration"
             onClick={() => navigate('message-config')}
-          />
+          /> */}
         </div>
       </section>
 
@@ -110,27 +129,26 @@ const SettingHome = () => {
       <section className="mb-12">
         <h2 className="text-lg font-semibold text-gray-800 mb-6">Fees and Admission Configuration</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <ConfigCard
-            icon={DollarSign}
-            title="Fees Configuration"
-            onClick={() => openModal('fees-config')}
-          />
-          <ConfigCard
-            icon={UserPlus}
-            title="Admission Configuration"
-            onClick={() => openModal('admission-config')}
-          />
+          {AdmissionConfigList.map((config) => (
+            <ConfigCard
+              key={config.id}
+              icon={config.icon}
+              title={config.label}
+              onClick={() => handleSettingsClick("admissionConfig",config.pathname)}
+              
+            />
+          ))}
         </div>
       </section>
 
       {/* Employee Configuration */}
       <section className="mb-12">
-        <h2 className="text-lg font-semibold text-gray-800 mb-6">Employee Configuration</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-6">User Access Configuration</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <ConfigCard
             icon={Users}
-            title="Staff Configuration"
-            onClick={() => openModal('staff-config')}
+            title="User Access Configuration"
+            onClick={() => navigate('user-config')}
           />
         </div>
       </section>
@@ -142,12 +160,12 @@ const SettingHome = () => {
           <ConfigCard
             icon={Shield}
             title="Security Configuration"
-            onClick={() => openModal('security-config')}
+            onClick={() => navigate('security-config')}
           />
           <ConfigCard
             icon={Globe}
             title="API Configuration"
-            onClick={() => openModal('api-config')}
+            onClick={() => navigate('api-config')}
           />
         </div>
       </section>

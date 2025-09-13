@@ -1,45 +1,4 @@
 
-// const SchoolConfig = () => {
-//   return (
-//        <div className="space-y-6">
-//                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//                             <div className="space-y-4">
-//                                 <div>
-//                                     <label className="block text-sm font-medium text-gray-700 mb-2">School Name</label>
-//                                     <input type="text" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter school name" />
-//                                 </div>
-//                                 <div>
-//                                     <label className="block text-sm font-medium text-gray-700 mb-2">School Code</label>
-//                                     <input type="text" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter school code" />
-//                                 </div>
-//                                 <div>
-//                                     <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
-//                                     <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" rows={3} placeholder="Enter school address"></textarea>
-//                                 </div>
-//                             </div>
-//                             <div className="space-y-4">
-//                                 <div>
-//                                     <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-//                                     <input type="tel" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter phone number" />
-//                                 </div>
-//                                 <div>
-//                                     <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-//                                     <input type="email" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter email address" />
-//                                 </div>
-//                                 <div>
-//                                     <label className="block text-sm font-medium text-gray-700 mb-2">Academic Year</label>
-//                                     <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-//                                         <option>2024-2025</option>
-//                                         <option>2025-2026</option>
-//                                     </select>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//   )
-// }
-
-// export default SchoolConfig
 import { useState, useRef, useEffect } from 'react';
 import { Upload, Save, Loader2, X, Building2, Camera, Phone, Mail, Globe, User, Calendar, MapPin } from 'lucide-react';
 import SettingsTabs from './SettingsTabs';
@@ -319,18 +278,6 @@ const SchoolConfig = () => {
     <div className=" bg-gray-50 py-3 px-4 lg:px-6">
       <div className="mb-3">
         <SettingsTabs />
-        
-        {/* Error Summary */}
-        {Object.keys(errors).length > 0 && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-            <h3 className="text-red-800 font-medium mb-2">Please fix the following errors:</h3>
-            <ul className="text-sm text-red-600 space-y-1">
-              {Object.values(errors).map((error, index) => (
-                <li key={index}>• {error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
       
       <div className="space-y-8">
@@ -404,7 +351,7 @@ const SchoolConfig = () => {
                 )}
               </div>
               
-              <div className="bg-blue-50 rounded-lg p-4">
+              {/* <div className="bg-blue-50 rounded-lg p-4">
                 <h4 className="text-sm font-medium text-blue-900 mb-2">Upload Guidelines:</h4>
                 <div className="text-sm text-blue-700 space-y-1">
                   <p>• <strong>Formats:</strong> JPG, PNG, SVG supported</p>
@@ -412,7 +359,7 @@ const SchoolConfig = () => {
                   <p>• <strong>Dimensions:</strong> Recommended 300x300px or square ratio</p>
                   <p>• <strong>Quality:</strong> High resolution for best results</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

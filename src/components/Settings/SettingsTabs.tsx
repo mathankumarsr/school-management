@@ -2,58 +2,64 @@ import React, { useState } from 'react';
 import {
     Settings, School, Users, GraduationCap, DollarSign,
     Calendar, BookOpen, Award, Activity, FileText,
-    Bell, Shield, Palette, Globe, Database, Mail
+    Bell, Shield, Palette, Globe, Database, Mail,
+    ArrowLeftIcon,
+    MoveLeft
 } from 'lucide-react';
 import SchoolConfig from './SchoolConfig';
 import ClassConfig from './ClassConfig/ClassConfig';
 import { useNavigate } from 'react-router-dom';
+import { AdmissionConfigList, SchoolConfigList } from '../../utils/constant';
+import { useSelector } from 'react-redux';
 
 const SettingsTabs = () => {
     const [activeTab, setActiveTab] = useState('school-config');
     const navigate = useNavigate()
+    const { selectedSettingSection } = useSelector((state: any) => state.settings);
+    const tabsList = selectedSettingSection === "admissionConfig" ? AdmissionConfigList : SchoolConfigList
 
     const settingsTabs = [
         {
             id: 'school-config',
             label: 'School Configuration',
             icon: School,
-            pathname: "/school-config"
+            pathname: "/settings/school-config"
         },
         {
             id: 'classes',
             label: 'Classes & Sections',
             icon: Users,
-            pathname: "/class-config"
+            pathname: "/settings/class-config"
         },
         {
             id: 'employees',
             label: 'Employees',
             icon: Users,
-            pathname: "/employee-config"
+            pathname: "/settings/employee-config"
         },
         {
             id: 'admission',
             label: 'Admission',
             icon: GraduationCap,
-            description: 'Admission process and requirements settings'
+            pathname: "/settings/employee-config"
         },
         {
             id: 'fees',
             label: 'Fees',
             icon: DollarSign,
-            description: 'Fee structure and payment configurations'
+            pathname: "/settings/employee-config"
         },
         {
             id: 'students',
             label: 'Students',
             icon: Users,
-            description: 'Student management and profile settings'
+            pathname: "/settings/employee-config"
         },
         {
             id: 'exams',
             label: 'Exams',
             icon: FileText,
-            description: 'Examination and grading system setup'
+            pathname: "/settings/employee-config"
         },
         {
             id: 'timetable',
@@ -317,14 +323,15 @@ const SettingsTabs = () => {
     };
 
     return (
-        <div className=" ">
+        <div className="sticky top-[10px]">
             <div className="">
                 <div className="bg-white rounded-lg shadow-sm">
                     {/* Header */}
                     <div className="flex flex-col">
-                        <div className="border-b border-gray-200">
+                        <div className="border-b border-gray-200 flex items-center px-4">
+                            <MoveLeft className='w-6 h-6 cursor-pointer' onClick={() => navigate("/settings")}/>
                             <nav className="flex space-x-6 overflow-x-auto scrollbar-hide px-4">
-                                {settingsTabs.map((tab) => {
+                                {tabsList.map((tab) => {
                                     const IconComponent = tab.icon;
                                     return (
                                         <button
@@ -342,7 +349,6 @@ const SettingsTabs = () => {
                                 })}
                             </nav>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -42,7 +42,7 @@ const Layout = () => {
         { icon: Award, label: 'Certificates', path: '/certificate' },
         { icon: Activity, label: 'Activities', path: '/activities' },
         { icon: BarChart3, label: 'Reports', path: '/reports' },
-        { icon: Settings, label: 'Settings', path: '/settings-home' },
+        { icon: Settings, label: 'Settings', path: '/settings' },
         { icon: Ticket, label: 'Tickets', path: '/tickets' }
     ];
 
@@ -73,7 +73,7 @@ const Layout = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 flex flex-col overflow-auto">
                 {/* Header */}
                 <header className="bg-white border-b border-gray-200 px-6 py-4">
                     <div className="flex items-center justify-between">

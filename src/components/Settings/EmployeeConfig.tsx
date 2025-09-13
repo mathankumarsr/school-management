@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Edit, Trash2, Plus } from 'lucide-react';
+import { Edit, Trash2, Plus, Download, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import SettingsTabs from './SettingsTabs';
 
 interface Employee {
@@ -107,7 +107,7 @@ const EmployeeConfig: React.FC = () => {
       alert('Please fill in all required fields');
       return;
     }
-    
+
     const newEmployee: Employee = {
       id: editingId || Date.now(),
       sno: editingId ? employees.find(emp => emp.id === editingId)?.sno || 0 : employees.length + 1,
@@ -191,6 +191,56 @@ const EmployeeConfig: React.FC = () => {
     });
   };
 
+  interface Employee {
+    id: string;
+    sno: number;
+    registerNumber: string;
+    name: string;
+    role: string;
+    salary: number;
+    status: "active" | "inactive";
+  }
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  // Filter by search term
+  const filteredEmployees = employees.filter(
+    (emp) =>
+      emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp.registerNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp.role.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Pagination
+  const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedEmployees = filteredEmployees.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+
+  const handleDownload = () => {
+    const csvContent = [
+      ['S.No', 'Class', 'Section', 'Capacity'],
+      ...filteredEmployees.map((item, index) => [
+        index + 1,
+        item
+      ])
+    ].map(row => row.join(',')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'class_configurations.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+
   return (
     <div className=" bg-gray-50 py-3 px-4 lg:px-6">
       <div className="mb-3">
@@ -198,94 +248,167 @@ const EmployeeConfig: React.FC = () => {
 
         <div className="flex gap-2 w-full mt-3">
           {/* Left Side - Employee Table */}
-          <div className="bg-white rounded-lg shadow-md p-6 w-[65%]">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-semibold text-gray-800">Employee List</h3>
-              <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                {employees.length} Employees
-              </span>
+          <div className="lg:col-span-2 bg-white rounded-lg shadow-md">
+            {/* Table Header */}
+            <div className="p-4 border-b border-gray-200">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div className="font-semibold">Employee List</div>
+                <div className="flex gap-2 items-center">
+                  <div className="relative">
+                    <Search
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500"
+                      size={16}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchTerm}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setCurrentPage(1); // reset pagination when searching
+                      }}
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={handleDownload}
+                      className="p-2 text-blue-500 hover:bg-blue-50 rounded-md transition-colors cursor-pointer"
+                      title="Download"
+                    >
+                      <Download size={18} />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-50 border-b">
-                    <th className="text-left p-3 font-medium text-gray-700">S.No</th>
-                    <th className="text-left p-3 font-medium text-gray-700">Reg. No</th>
-                    <th className="text-left p-3 font-medium text-gray-700">Name</th>
-                    <th className="text-left p-3 font-medium text-gray-700">Role</th>
-                    <th className="text-left p-3 font-medium text-gray-700">Salary</th>
-                    <th className="text-left p-3 font-medium text-gray-700">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {employees.map((employee) => (
-                    <tr key={employee.id} className="border-b hover:bg-gray-50 transition-colors">
-                      <td className="p-3 text-gray-800">{employee.sno}</td>
-                      <td className="p-3 text-gray-800">{employee.registerNumber}</td>
-                      <td className="p-3">
-                        <div>
-                          <div className="font-medium text-gray-800">{employee.name}</div>
-                          <div className="text-sm text-gray-500">{employee.qualification}</div>
-                        </div>
-                      </td>
-                      <td className="p-3 text-gray-800">{employee.role}</td>
-                      <td className="p-3">
-                        <div className="font-medium text-gray-800">₹{employee.salary.toLocaleString()}</div>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            employee.status === 'active' 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-red-100 text-red-800'
-                          }`}>
+            {/* Table */}
+            <div className="overflow-auto scrollbar-hide h-[47.5vh]">
+              {paginatedEmployees.length > 0 ? (
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                        S.No
+                      </th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                        Reg. No
+                      </th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                        Name
+                      </th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                        Role
+                      </th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                        Salary
+                      </th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                        Status
+                      </th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {paginatedEmployees.map((employee, index) => (
+                      <tr
+                        key={employee.id}
+                        className="hover:bg-gray-50 transition-colors"
+                      >
+                        <td className="px-4 py-3 text-sm text-gray-900">
+                          {startIndex + index + 1}
+                        </td>
+                        <td className="px-4 py-3 text-sm text-gray-900">
+                          {employee.registerNumber}
+                        </td>
+                        <td className="px-4 py-3 text-sm text-gray-900">
+                          {employee.name}
+                        </td>
+                        <td className="px-4 py-3 text-sm text-gray-900">
+                          {employee.role}
+                        </td>
+                        <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                          ₹{employee.salary.toLocaleString()}
+                        </td>
+                        <td className="px-4 py-3 text-sm">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${employee.status === "active"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                              }`}
+                          >
                             {employee.status}
                           </span>
-                          {employee.pfEnabled && (
-                            <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
-                              PF
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-3">
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={() => handleEdit(employee)}
-                            className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
-                          >
-                            <Edit size={16} />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(employee.id)}
-                            className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              {employees.length === 0 && (
-                <div className="text-center py-8 text-gray-500">
+                        </td>
+                        <td className="px-4 py-3 text-sm">
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleEdit(employee)}
+                              className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            >
+                              <Edit size={16} />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(employee.id)}
+                              className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                // Empty State
+                <div className="text-center py-12 text-gray-500">
                   <Plus className="mx-auto mb-4 text-gray-400" size={48} />
                   <p>No employees found. Add your first employee using the form.</p>
                 </div>
               )}
             </div>
+
+            {/* Pagination */}
+            {filteredEmployees.length > 0 && (
+              <div className="p-4 border-t border-gray-200 flex justify-between items-center">
+                <div className="text-sm text-gray-500">Rows per page: {itemsPerPage}</div>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-500">
+                    {startIndex + 1}-
+                    {Math.min(startIndex + itemsPerPage, filteredEmployees.length)} of{" "}
+                    {filteredEmployees.length}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setCurrentPage((prev) => prev - 1)}
+                      disabled={currentPage === 1}
+                      className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <button
+                      onClick={() => setCurrentPage((prev) => prev + 1)}
+                      disabled={currentPage === totalPages}
+                      className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Side - Employee Form */}
-          <div className="bg-white rounded-lg shadow-md p-6 w-[35%]">
+          <div className="bg-white rounded-lg shadow-md p-6 w-[35%] h-[71vh] overflow-y-auto scrollbar-hide">
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-gray-800">
                 {editingId ? 'Edit Employee' : 'Add New Employee'}
               </h3>
-              <p className="text-gray-600 text-sm mt-1">
-                Fill in the details to {editingId ? 'update' : 'add'} an employee
-              </p>
             </div>
 
             <div className="space-y-6">
@@ -386,14 +509,12 @@ const EmployeeConfig: React.FC = () => {
                       />
                       <div
                         onClick={() => handleInputChange('pfEnabled', !formData.pfEnabled)}
-                        className={`w-12 h-6 rounded-full cursor-pointer transition-colors ${
-                          formData.pfEnabled ? 'bg-blue-600' : 'bg-gray-300'
-                        }`}
+                        className={`w-12 h-6 rounded-full cursor-pointer transition-colors ${formData.pfEnabled ? 'bg-blue-600' : 'bg-gray-300'
+                          }`}
                       >
                         <div
-                          className={`w-5 h-5 bg-white rounded-full transition-transform transform ${
-                            formData.pfEnabled ? 'translate-x-6' : 'translate-x-0.5'
-                          } mt-0.5`}
+                          className={`w-5 h-5 bg-white rounded-full transition-transform transform ${formData.pfEnabled ? 'translate-x-6' : 'translate-x-0.5'
+                            } mt-0.5`}
                         />
                       </div>
                     </div>
