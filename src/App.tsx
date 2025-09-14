@@ -19,6 +19,8 @@ import SettingClass from "./components/Settings/SettingClass";
 import FeesConfig from "./components/Settings/Feesconfig";
 import SubjectConfig from "./components/Settings/SubjectConfig";
 import ReferralConfig from "./components/Settings/ReferralConfig";
+import ClassroomConfig from "./components/Settings/ClassRoomCongif";
+import MessageConfig from "./components/Settings/MessageConfig";
 
 function App() {
   return (
@@ -49,6 +51,8 @@ function App() {
           <Route path="settings/fees-config" element={<FeesConfig />} />
           <Route path="settings/subject-config" element={<SubjectConfig />} />
           <Route path="settings/referral-config" element={<ReferralConfig />} />
+          <Route path="settings/classroom-config" element={<ClassroomConfig />} />
+          <Route path="settings/message-config" element={<MessageConfig />} />
         </Route>
       </Routes>
       <ToastContainer
