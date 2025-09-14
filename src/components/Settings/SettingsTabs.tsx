@@ -323,7 +323,7 @@ const SettingsTabs = () => {
     };
 
     return (
-        <div className="sticky top-[10px]">
+        <div className="sticky top-0">
             <div className="">
                 <div className="bg-white rounded-lg shadow-sm">
                     {/* Header */}

@@ -248,7 +248,7 @@ const EmployeeConfig: React.FC = () => {
 
         <div className="flex gap-2 w-full mt-3">
           {/* Left Side - Employee Table */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-md">
+          <div className="lg:col-span-2 bg-white rounded-lg shadow-md  w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">

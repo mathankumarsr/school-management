@@ -275,14 +275,14 @@ const SchoolConfig = () => {
   }
   
   return (
-    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
       <div className="mb-3">
         <SettingsTabs />
       </div>
       
-      <div className="space-y-8">
+      <div className="space-y-8 h-[74vh] xl:h-[80vh] overflow-auto scrollbar-hide">
         {/* Logo Upload Section */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
           <div className="flex items-center space-x-2 mb-4">
             <Camera className="h-5 w-5 text-blue-600" />
             <h2 className="text-xl font-semibold text-gray-900">School Logo</h2>
