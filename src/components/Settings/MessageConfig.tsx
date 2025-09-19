@@ -1,127 +1,128 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Download, Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import SettingsTabs from './SettingsTabs';
 
 const MessageConfig = () => {
   const [messages, setMessages] = useState([
-    { 
-      id: 1, 
-      requestNo: 'REQ001', 
-      requestDate: '2024-01-15', 
-      requestBy: 'John Smith', 
-      messageType: 'SMS', 
-      messageCount: 250, 
-      notes: 'Monthly fee reminder', 
-      status: 'Completed' 
+    {
+      id: 1,
+      requestNo: 'REQ001',
+      requestDate: '2024-01-15',
+      requestBy: 'John Smith',
+      messageType: 'SMS',
+      messageCount: 250,
+      notes: 'Monthly fee reminder',
+      status: 'Completed'
     },
-    { 
-      id: 2, 
-      requestNo: 'REQ002', 
-      requestDate: '2024-01-16', 
-      requestBy: 'Sarah Johnson', 
-      messageType: 'WhatsApp', 
-      messageCount: 180, 
-      notes: 'Parent-teacher meeting notification', 
-      status: 'Pending' 
+    {
+      id: 2,
+      requestNo: 'REQ002',
+      requestDate: '2024-01-16',
+      requestBy: 'Sarah Johnson',
+      messageType: 'WhatsApp',
+      messageCount: 180,
+      notes: 'Parent-teacher meeting notification',
+      status: 'Pending'
     },
-    { 
-      id: 3, 
-      requestNo: 'REQ003', 
-      requestDate: '2024-01-17', 
-      requestBy: 'Mike Wilson', 
-      messageType: 'SMS', 
-      messageCount: 300, 
-      notes: 'Exam schedule announcement', 
-      status: 'Completed' 
+    {
+      id: 3,
+      requestNo: 'REQ003',
+      requestDate: '2024-01-17',
+      requestBy: 'Mike Wilson',
+      messageType: 'SMS',
+      messageCount: 300,
+      notes: 'Exam schedule announcement',
+      status: 'Completed'
     },
-    { 
-      id: 4, 
-      requestNo: 'REQ004', 
-      requestDate: '2024-01-18', 
-      requestBy: 'Emily Davis', 
-      messageType: 'WhatsApp', 
-      messageCount: 120, 
-      notes: 'Holiday notification', 
-      status: 'Pending' 
+    {
+      id: 4,
+      requestNo: 'REQ004',
+      requestDate: '2024-01-18',
+      requestBy: 'Emily Davis',
+      messageType: 'WhatsApp',
+      messageCount: 120,
+      notes: 'Holiday notification',
+      status: 'Pending'
     },
-    { 
-      id: 5, 
-      requestNo: 'REQ005', 
-      requestDate: '2024-01-19', 
-      requestBy: 'David Brown', 
-      messageType: 'SMS', 
-      messageCount: 400, 
-      notes: 'Emergency contact update', 
-      status: 'Completed' 
+    {
+      id: 5,
+      requestNo: 'REQ005',
+      requestDate: '2024-01-19',
+      requestBy: 'David Brown',
+      messageType: 'SMS',
+      messageCount: 400,
+      notes: 'Emergency contact update',
+      status: 'Completed'
     },
-    { 
-      id: 6, 
-      requestNo: 'REQ006', 
-      requestDate: '2024-01-20', 
-      requestBy: 'Lisa Anderson', 
-      messageType: 'WhatsApp', 
-      messageCount: 90, 
-      notes: 'Sports day invitation', 
-      status: 'Pending' 
+    {
+      id: 6,
+      requestNo: 'REQ006',
+      requestDate: '2024-01-20',
+      requestBy: 'Lisa Anderson',
+      messageType: 'WhatsApp',
+      messageCount: 90,
+      notes: 'Sports day invitation',
+      status: 'Pending'
     },
-    { 
-      id: 7, 
-      requestNo: 'REQ007', 
-      requestDate: '2024-01-21', 
-      requestBy: 'Robert Taylor', 
-      messageType: 'SMS', 
-      messageCount: 220, 
-      notes: 'Academic progress report', 
-      status: 'Completed' 
+    {
+      id: 7,
+      requestNo: 'REQ007',
+      requestDate: '2024-01-21',
+      requestBy: 'Robert Taylor',
+      messageType: 'SMS',
+      messageCount: 220,
+      notes: 'Academic progress report',
+      status: 'Completed'
     },
-    { 
-      id: 8, 
-      requestNo: 'REQ008', 
-      requestDate: '2024-01-22', 
-      requestBy: 'Jennifer White', 
-      messageType: 'WhatsApp', 
-      messageCount: 160, 
-      notes: 'School uniform reminder', 
-      status: 'Pending' 
+    {
+      id: 8,
+      requestNo: 'REQ008',
+      requestDate: '2024-01-22',
+      requestBy: 'Jennifer White',
+      messageType: 'WhatsApp',
+      messageCount: 160,
+      notes: 'School uniform reminder',
+      status: 'Pending'
     },
-    { 
-      id: 9, 
-      requestNo: 'REQ009', 
-      requestDate: '2024-01-23', 
-      requestBy: 'Mark Garcia', 
-      messageType: 'SMS', 
-      messageCount: 350, 
-      notes: 'Library book return notice', 
-      status: 'Completed' 
+    {
+      id: 9,
+      requestNo: 'REQ009',
+      requestDate: '2024-01-23',
+      requestBy: 'Mark Garcia',
+      messageType: 'SMS',
+      messageCount: 350,
+      notes: 'Library book return notice',
+      status: 'Completed'
     },
-    { 
-      id: 10, 
-      requestNo: 'REQ010', 
-      requestDate: '2024-01-24', 
-      requestBy: 'Amanda Miller', 
-      messageType: 'WhatsApp', 
-      messageCount: 200, 
-      notes: 'Field trip permission', 
-      status: 'Pending' 
+    {
+      id: 10,
+      requestNo: 'REQ010',
+      requestDate: '2024-01-24',
+      requestBy: 'Amanda Miller',
+      messageType: 'WhatsApp',
+      messageCount: 200,
+      notes: 'Field trip permission',
+      status: 'Pending'
     },
-    { 
-      id: 11, 
-      requestNo: 'REQ011', 
-      requestDate: '2024-01-25', 
-      requestBy: 'Chris Wilson', 
-      messageType: 'SMS', 
-      messageCount: 280, 
-      notes: 'Vaccination reminder', 
-      status: 'Completed' 
+    {
+      id: 11,
+      requestNo: 'REQ011',
+      requestDate: '2024-01-25',
+      requestBy: 'Chris Wilson',
+      messageType: 'SMS',
+      messageCount: 280,
+      notes: 'Vaccination reminder',
+      status: 'Completed'
     },
-    { 
-      id: 12, 
-      requestNo: 'REQ012', 
-      requestDate: '2024-01-26', 
-      requestBy: 'Maria Rodriguez', 
-      messageType: 'WhatsApp', 
-      messageCount: 150, 
-      notes: 'Art exhibition invitation', 
-      status: 'Pending' 
+    {
+      id: 12,
+      requestNo: 'REQ012',
+      requestDate: '2024-01-26',
+      requestBy: 'Maria Rodriguez',
+      messageType: 'WhatsApp',
+      messageCount: 150,
+      notes: 'Art exhibition invitation',
+      status: 'Pending'
     },
   ]);
 
@@ -143,15 +144,15 @@ const MessageConfig = () => {
 
   // Generate request number
   const generateRequestNo = () => {
-    const lastReqNo = messages.length > 0 
-      ? Math.max(...messages.map(m => parseInt(m.requestNo.replace('REQ', '')))) 
+    const lastReqNo = messages.length > 0
+      ? Math.max(...messages.map(m => parseInt(m.requestNo.replace('REQ', ''))))
       : 0;
     return `REQ${String(lastReqNo + 1).padStart(3, '0')}`;
   };
 
   // Filter and paginate data
   const filteredMessages = useMemo(() => {
-    return messages.filter(item => 
+    return messages.filter(item =>
       item.requestNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.requestBy.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.messageType.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -171,7 +172,7 @@ const MessageConfig = () => {
   };
 
   const handleClear = () => {
-    setFormData({ 
+    setFormData({
       requestDate: new Date().toISOString().split('T')[0],
       requestBy: '',
       messageType: '',
@@ -194,16 +195,16 @@ const MessageConfig = () => {
 
     if (editingId) {
       // Edit existing message
-      setMessages(prev => prev.map(item => 
-        item.id === editingId 
-          ? { 
-              ...item, 
-              requestDate: formData.requestDate,
-              requestBy: formData.requestBy,
-              messageType: formData.messageType,
-              messageCount: parseInt(formData.messageCount),
-              notes: formData.notes
-            }
+      setMessages(prev => prev.map(item =>
+        item.id === editingId
+          ? {
+            ...item,
+            requestDate: formData.requestDate,
+            requestBy: formData.requestBy,
+            messageType: formData.messageType,
+            messageCount: parseInt(formData.messageCount),
+            notes: formData.notes
+          }
           : item
       ));
       setEditingId(null);
@@ -221,7 +222,7 @@ const MessageConfig = () => {
       };
       setMessages(prev => [...prev, newMessage]);
     }
-    
+
     handleClear();
   };
 
@@ -288,62 +289,62 @@ const MessageConfig = () => {
 
   const getStatusBadge = (status) => {
     return (
-      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-        status === 'Completed' 
-          ? 'bg-green-100 text-green-800' 
+      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${status === 'Completed'
+          ? 'bg-green-100 text-green-800'
           : 'bg-yellow-100 text-yellow-800'
-      }`}>
+        }`}>
         {status}
       </span>
     );
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-blue-800 mb-6">Message Configuration Management</h1>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Side - Table */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-md">
+    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+      <div className="mb-3">
+        <SettingsTabs />
+
+        <div className="flex flex-col-reverse xl:flex-row gap-2 w-full mt-3">
+          <div className=" bg-white rounded-lg shadow-md w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
-              <div className="flex justify-end items-center gap-3">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                  />
+              <div className="flex justify-between items-center gap-3">
+                <div className="font-semibold">Classroom Configuration</div>
+                <div className="flex gap-2 items-center">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                    />
+                  </div>
+                  <button
+                    onClick={handleDownload}
+                    className="p-2 text-blue-500 hover:bg-blue-50 rounded-md transition-colors cursor-pointer"
+                    title="Download"
+                  >
+                    <Download size={18} />
+                  </button>
                 </div>
-                
-                <button
-                  onClick={handleDownload}
-                  className="p-2 text-blue-500 hover:bg-blue-50 rounded-md transition-colors"
-                  title="Download"
-                >
-                  <Download size={18} />
-                </button>
               </div>
             </div>
 
             {/* Table */}
-            <div className="max-h-96 overflow-y-auto overflow-x-scroll" style={{scrollbarWidth: 'thin'}}>
-              <table className="w-full min-w-[1000px]">
+            <div className="overflow-auto scrollbar-hide h-[47.5vh]">
+              <table className="w-full">
                 <thead className="bg-blue-50 sticky top-0">
                   <tr>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[50px]">S.No</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[90px]">Request No</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[100px]">Request Date</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[120px]">Request By</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[100px]">Message Type</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[90px]">Message Count</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[150px]">Notes</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[90px]">Status</th>
-                    <th className="px-3 py-3 text-left text-sm font-semibold text-blue-800 min-w-[80px]">Action</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[50px]">S.No</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[90px]">Request No</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[100px]">Request Date</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[120px]">Request By</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[100px]">Message Type</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[90px]">Message Count</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[150px]">Notes</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[90px]">Status</th>
+                    <th className="px-3 py-3 text-left text-sm font-semibold text-black min-w-[80px]">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -386,7 +387,7 @@ const MessageConfig = () => {
                     </tr>
                   )}
                   {/* Fill empty rows to maintain table height */}
-                  {paginatedMessages.length < itemsPerPage && 
+                  {paginatedMessages.length < itemsPerPage &&
                     Array.from({ length: itemsPerPage - paginatedMessages.length }, (_, index) => (
                       <tr key={`empty-${index}`} className="h-12">
                         <td colSpan={9} className="px-3 py-3"></td>
@@ -404,7 +405,7 @@ const MessageConfig = () => {
               </div>
               <div className="flex items-center gap-4">
                 <span className="text-sm text-gray-500">
-                  {filteredMessages.length > 0 
+                  {filteredMessages.length > 0
                     ? `${startIndex + 1}-${Math.min(startIndex + paginatedMessages.length, filteredMessages.length)} of ${filteredMessages.length}`
                     : '0 of 0'
                   }
@@ -430,12 +431,12 @@ const MessageConfig = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-white rounded-lg shadow-md p-6 h-fit">
-            <h2 className="text-xl font-semibold text-blue-800 mb-6">
-              {editingId ? 'Edit Message Request' : 'Message Configuration'}
+          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%]">
+            <h2 className="text-xl font-semibold text-black mb-3">
+              {editingId ? 'Edit Message' : 'Message Configuration'}
             </h2>
-            
-            <div className="space-y-4">
+
+            <div className="flex flex-row xl:flex-col flex-wrap xl:flex-nowrap gap-4 xl:gap-3 h-auto xl:h-[47vh] overflow-y-auto scrollbar-hide">
               {/* Request Date */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -510,20 +511,21 @@ const MessageConfig = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 pt-4">
-                <button
-                  onClick={handleClear}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
-                >
-                  Clear
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
-                >
-                  {editingId ? 'Update' : 'Add'}
-                </button>
-              </div>
+
+            </div>
+            <div className="flex gap-3 pt-4">
+              <button
+                onClick={handleClear}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+              >
+                {editingId ? 'Update' : 'Add'}
+              </button>
             </div>
           </div>
         </div>

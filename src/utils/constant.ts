@@ -61,10 +61,10 @@ export const AdmissionConfigList = [
         icon: DollarSign,
         pathname: "/settings/fees-config"
     },
-    {
-        id: 'admission-config',
-        label: 'Admission Configuration',
-        icon: UserPlus,
-        pathname: "/settings/admission-config"
-    },
+    // {
+    //     id: 'admission-config',
+    //     label: 'Admission Configuration',
+    //     icon: UserPlus,
+    //     pathname: "/settings/admission-config"
+    // },
 ]

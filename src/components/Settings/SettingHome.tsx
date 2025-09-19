@@ -154,7 +154,7 @@ const SettingHome = () => {
       </section>
 
       {/* Security and Privacy Configuration */}
-      <section className="mb-12">
+      {/* <section className="mb-12">
         <h2 className="text-lg font-semibold text-gray-800 mb-6">Security and Privacy Configuration</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <ConfigCard
@@ -168,7 +168,7 @@ const SettingHome = () => {
             onClick={() => navigate('api-config')}
           />
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };
