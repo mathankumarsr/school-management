@@ -6,7 +6,8 @@ import {
     Book,
     UserPlus,
     MapPin,
-    MessageSquare
+    MessageSquare,
+    Building
 } from 'lucide-react';
 
 export const SchoolConfigList = [
@@ -67,4 +68,24 @@ export const AdmissionConfigList = [
     //     icon: UserPlus,
     //     pathname: "/settings/admission-config"
     // },
+]
+export const UserConfigList = [
+    {
+        id: 'user-details',
+        label: 'User Details',
+        icon: Users,
+        pathname: "/settings/user-details"
+    },
+    {
+        id: 'user-details',
+        label: 'Module Access',
+        icon: Building2,
+        pathname: "/settings/module-access"
+    },
+    {
+        id: 'user-details',
+        label: 'Screen Permission',
+        icon: Building,
+        pathname: "/settings/screen-access"
+    },
 ]

@@ -46,7 +46,7 @@ const SettingHome = () => {
     </div>
   );
 
-  const handleSettingsClick = (from='',path: string) => {
+  const handleSettingsClick = (from = '', path: string) => {
     dispatch(updateSetting({ key: 'selectedSettingSection', value: from }));
     navigate(path);
   }
@@ -63,7 +63,7 @@ const SettingHome = () => {
               key={config.id}
               icon={config.icon}
               title={config.label}
-              onClick={() => handleSettingsClick("schoolConfig",config.pathname)}
+              onClick={() => handleSettingsClick("schoolConfig", config.pathname)}
             />
           ))}
 
@@ -134,8 +134,8 @@ const SettingHome = () => {
               key={config.id}
               icon={config.icon}
               title={config.label}
-              onClick={() => handleSettingsClick("admissionConfig",config.pathname)}
-              
+              onClick={() => handleSettingsClick("admissionConfig", config.pathname)}
+
             />
           ))}
         </div>
@@ -148,7 +148,7 @@ const SettingHome = () => {
           <ConfigCard
             icon={Users}
             title="User Access Configuration"
-            onClick={() => navigate('user-config')}
+            onClick={() => handleSettingsClick("userConfig", "user-details")}
           />
         </div>
       </section>

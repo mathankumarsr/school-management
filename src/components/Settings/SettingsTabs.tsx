@@ -9,15 +9,15 @@ import {
 import SchoolConfig from './SchoolConfig';
 import ClassConfig from './ClassConfig/ClassConfig';
 import { useNavigate } from 'react-router-dom';
-import { AdmissionConfigList, SchoolConfigList } from '../../utils/constant';
+import { AdmissionConfigList, SchoolConfigList, UserConfigList } from '../../utils/constant';
 import { useSelector } from 'react-redux';
 
 const SettingsTabs = () => {
     const [activeTab, setActiveTab] = useState('school-config');
     const navigate = useNavigate()
     const { selectedSettingSection } = useSelector((state: any) => state.settings);
-    const tabsList = selectedSettingSection === "admissionConfig" ? AdmissionConfigList : SchoolConfigList
-
+    const tabsList = selectedSettingSection === "admissionConfig" ? AdmissionConfigList : selectedSettingSection === "userConfig" ? UserConfigList : SchoolConfigList
+    console.log(selectedSettingSection,"sele")
     const settingsTabs = [
         {
             id: 'school-config',

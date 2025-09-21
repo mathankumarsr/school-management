@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Users, Settings, BookOpen, GraduationCap, DollarSign, Calendar, FileText, BarChart, Bell, Shield, Eye, Edit, Plus, Save, X } from 'lucide-react';
+import SettingsTabs from './SettingsTabs';
 
-const UserAccess = () => {
-  const [activeTab, setActiveTab] = useState('moduleAccess');
+interface UserAccessProps {
+  from?: string
+}
+
+const UserAccess: React.FC<UserAccessProps> = ({ from = '' }) => {
+  const [activeTab, setActiveTab] = useState(from ? from : 'userDetails');
   const [selectedModule, setSelectedModule] = useState('');
   const [userForm, setUserForm] = useState({
     firstName: '',
@@ -15,6 +20,10 @@ const UserAccess = () => {
     school: 'Rajesh International School',
     notes: ''
   });
+
+  useEffect(() => {
+    setActiveTab(from)
+  }, [from])
 
   const [moduleAccess, setModuleAccess] = useState({
     'Student Management': { view: true, edit: false },
@@ -48,7 +57,7 @@ const UserAccess = () => {
 
   const roles = ['Principal', 'Vice Principal', 'Teacher', 'Admin Staff', 'Accountant', 'Librarian', 'Transport Manager', 'Student', 'Parent'];
 
-  const handleModuleAccessChange = (moduleName, accessType) => {
+  const handleModuleAccessChange = (moduleName: string, accessType: any) => {
     setModuleAccess(prev => ({
       ...prev,
       [moduleName]: {
@@ -58,7 +67,7 @@ const UserAccess = () => {
     }));
   };
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: any) => {
     setUserForm(prev => ({
       ...prev,
       [field]: value
@@ -72,51 +81,18 @@ const UserAccess = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className=" bg-gray-50">
       <div className="flex">
 
         {/* Main Content */}
         <div className="flex-1 p-6">
           <div className="max-w-6xl mx-auto">
             <div className="bg-white rounded-lg shadow-sm">
-              
-              {/* Navigation Tabs */}
-              <div className="border-b border-gray-200">
-                <nav className="flex space-x-8 px-6">
-                  <button
-                    onClick={() => setActiveTab('userDetails')}
-                    className={`py-4 px-2 border-b-2 font-medium text-sm ${
-                      activeTab === 'userDetails'
-                        ? 'border-blue-600 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    User Details
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('moduleAccess')}
-                    className={`py-4 px-2 border-b-2 font-medium text-sm ${
-                      activeTab === 'moduleAccess'
-                        ? 'border-blue-600 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    Module Access
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('permissions')}
-                    className={`py-4 px-2 border-b-2 font-medium text-sm ${
-                      activeTab === 'permissions'
-                        ? 'border-blue-600 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    Screen Permissions
-                  </button>
-                </nav>
-              </div>
 
-              <div className="p-6">
+              {/* Navigation Tabs */}
+              <SettingsTabs />
+
+              <div className="p-6 h-[58.5vh] overflow-auto scrollbar-hide">
                 {/* User Details Tab */}
                 {activeTab === 'userDetails' && (
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -288,7 +264,7 @@ const UserAccess = () => {
                 )}
 
                 {/* Screen Permissions Tab */}
-                {activeTab === 'permissions' && (
+                {activeTab === 'screenAccess' && (
                   <div>
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-lg font-semibold text-gray-900">Screen-Level Permissions</h3>
@@ -345,32 +321,22 @@ const UserAccess = () => {
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
-                  <button className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 flex items-center">
-                    <X className="w-4 h-4 mr-2" />
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleSave}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center"
-                  >
-                    <Save className="w-4 h-4 mr-2" />
-                    Save User Access
-                  </button>
-                </div>
+              </div>
+              <div className="flex justify-end space-x-4 p-4 border-t border-gray-200">
+                <button className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 flex items-center">
+                  <X className="w-4 h-4 mr-2" />
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSave}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center"
+                >
+                  <Save className="w-4 h-4 mr-2" />
+                  Save User Access
+                </button>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="bg-blue-600 text-white p-4 text-center">
-        <div className="flex justify-center items-center space-x-8 text-sm">
-          <span>📧 www.schoolmanagement.com</span>
-          <span>v-4.2.1</span>
-          <span>📞 Call us: 7397757434, 9500468385</span>
-          <span>💬 Customer Support</span>
         </div>
       </div>
     </div>
