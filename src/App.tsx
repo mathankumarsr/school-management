@@ -19,7 +19,10 @@ import UserAccess from "./components/Settings/UserAccess";
 import FeesConfig from "./components/Settings/FeesConfig";
 import ClassroomConfig from "./components/Settings/ClassroomConfig";
 import AddNewAdmission from "./components/AddNewAdmission";
-import LayoutConfig from "./components/LayoutConfig";
+import LayoutConfig from "./components/LayoutConfig.tsx";
+import Employees from "./components/Employees";
+import EmployeeProfile1 from "./components/EmployeeProfile1.tsx";
+import EmployeeProfile2 from "./components/EmployeeProfile2.tsx";
 
 function App() {
   return (
@@ -55,6 +58,9 @@ function App() {
           <Route path="settings/module-access" element={<UserAccess from={"moduleAccess"}/>} />
           <Route path="settings/screen-access" element={<UserAccess from={"screenAccess"} />} />
           <Route path="layout-config" element={<LayoutConfig />} />
+          <Route path="employees" element={<Employees />} />
+          <Route path="employee-profile1" element={<EmployeeProfile1 />} />
+          <Route path="employee-profile2" element={<EmployeeProfile2 />} />
           
         </Route>
       </Routes>
