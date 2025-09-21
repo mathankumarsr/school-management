@@ -19,6 +19,7 @@ import UserAccess from "./components/Settings/UserAccess";
 import FeesConfig from "./components/Settings/FeesConfig";
 import ClassroomConfig from "./components/Settings/ClassroomConfig";
 import AddNewAdmission from "./components/AddNewAdmission";
+import LayoutConfig from "./components/LayoutConfig";
 
 function App() {
   return (
@@ -53,6 +54,8 @@ function App() {
           <Route path="settings/user-details" element={<UserAccess from={"userDetails"}/>} />
           <Route path="settings/module-access" element={<UserAccess from={"moduleAccess"}/>} />
           <Route path="settings/screen-access" element={<UserAccess from={"screenAccess"} />} />
+          <Route path="layout-config" element={<LayoutConfig />} />
+          
         </Route>
       </Routes>
       <ToastContainer
