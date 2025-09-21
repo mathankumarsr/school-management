@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Users, UserCheck, Award, Filter, Plus, Edit, Trash2, Printer, MoreHorizontal, X, Search, RotateCcw } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 // Types and Interfaces
 interface Student {
@@ -140,7 +141,7 @@ const Students: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('');
   const [filters, setFilters] = useState<FilterCriteria>({});
-
+  const navigate = useNavigate()
   // Class options from LKG to 12th
   const classOptions = [
     'LKG', 'UKG', '1st', '2nd', '3rd', '4th', '5th', '6th', 
@@ -207,7 +208,7 @@ const Students: React.FC = () => {
   const ControlsRow = () => (
     <div className="flex flex-col md:flex-row gap-4 mb-6 items-start md:items-center justify-between">
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-        <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+        <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors" onClick={() => navigate("/admission/new")}>
           <Plus className="w-4 h-4" />
           Create Admission
         </button>
@@ -600,7 +601,7 @@ const Students: React.FC = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {students.map((student, index) => (
-                <tr key={student.id} className="hover:bg-gray-50">
+                <tr key={student.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => navigate('profile')}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {index + 1}
                   </td>
@@ -695,10 +696,6 @@ const Students: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Student Management</h1>
-          <p className="text-gray-600">Manage and track student information</p>
-        </div>
 
         <StatsCards />
         <ControlsRow />

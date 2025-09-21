@@ -41,7 +41,7 @@
 
 .search-btn {
     padding: 12px 25px;
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: #2563EB;
     color: white;
     border: none;
     border-radius: 25px;
@@ -72,17 +72,13 @@
 }
 
 .nav-tab.active {
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: #2563EB;
     color: white;
 }
 
 .nav-tab:hover {
     background: #e9ecef;
     transform: translateY(-1px);
-}
-
-.nav-tab.active:hover {
-    background: linear-gradient(45deg, #5a6fd8, #6a42a0);
 }
 
 /* Main Content */
@@ -229,7 +225,7 @@
 }
 
 .save-btn {
-    background: linear-gradient(45deg, #28a745, #20c997);
+    background: #2563EB;
     color: white;
     padding: 12px 30px;
     border: none;

@@ -18,6 +18,7 @@ import MessageConfig from "./components/Settings/MessageConfig";
 import UserAccess from "./components/Settings/UserAccess";
 import FeesConfig from "./components/Settings/FeesConfig";
 import ClassroomConfig from "./components/Settings/ClassroomConfig";
+import AddNewAdmission from "./components/AddNewAdmission";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="admission" element={<Admission />} />
+          <Route path="admission/new" element={<AddNewAdmission />} />
           <Route path="fees" element={<Billing />} />
           <Route path="students" element={<Students />} />
           <Route path="students/profile" element={<StudentProfile />} />
