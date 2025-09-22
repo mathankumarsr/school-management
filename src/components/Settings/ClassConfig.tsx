@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Search, Download, Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import SettingsTabs from './SettingsTabs';
 
@@ -50,7 +50,7 @@ const SettingClass = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedClasses = filteredClasses.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -87,7 +87,7 @@ const SettingClass = () => {
     handleClear();
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData({
       class: item.class,
       section: item.section,
@@ -96,7 +96,7 @@ const SettingClass = () => {
     setEditingId(item.id);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     if (window.confirm('Are you sure you want to delete this class?')) {
       setClasses(prev => prev.filter(item => item.id !== id));
     }
@@ -122,12 +122,12 @@ const SettingClass = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   return (
-    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
       <div className="mb-3">
         <SettingsTabs />
         <div className="flex flex-col-reverse xl:flex-row gap-2 w-full mt-3">
@@ -136,7 +136,7 @@ const SettingClass = () => {
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div className='font-semibold'>Class List</div>
+                <div className='font-semibold text-lg'>Class List</div>
                 <div className='flex gap-2 items-center'>
                   <div className="relative">
                     <Search
@@ -221,14 +221,14 @@ const SettingClass = () => {
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-2 text-gray-400 cursor-pointer hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <ChevronLeft size={16} />
                   </button>
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-2 text-gray-400 cursor-pointer hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <ChevronRight size={16} />
                   </button>

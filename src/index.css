@@ -26,3 +26,8 @@ body {
   --color-accent-light: #d2d8e5; /* amber-400 */
   --color-accent-dark: #b0c0e8;  /* amber-700 */
 }
+
+
+button {
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { ClassData, CreateClassRequest, ClassSection } from '../../../utils/types';
+import type { ClassData, CreateClassRequest, ClassSection } from '../utils/types';
 
 interface ClassFormModalProps {
   isOpen: boolean;

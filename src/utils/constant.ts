@@ -1,13 +1,12 @@
 import {
-    Settings, School, Users, GraduationCap, DollarSign,
-    Calendar, BookOpen, Award, Activity, FileText,
-    Bell, Shield, Palette, Globe, Database, Mail,
+    Users, GraduationCap, DollarSign,
     Building2,
     Book,
     UserPlus,
     MapPin,
     MessageSquare,
-    Building
+    Building,
+    LayoutTemplate
 } from 'lucide-react';
 
 export const SchoolConfigList = [
@@ -62,12 +61,6 @@ export const AdmissionConfigList = [
         icon: DollarSign,
         pathname: "/settings/fees-config"
     },
-    // {
-    //     id: 'admission-config',
-    //     label: 'Admission Configuration',
-    //     icon: UserPlus,
-    //     pathname: "/settings/admission-config"
-    // },
 ]
 export const UserConfigList = [
     {
@@ -87,5 +80,14 @@ export const UserConfigList = [
         label: 'Screen Permission',
         icon: Building,
         pathname: "/settings/screen-access"
+    },
+]
+
+export const LayoutConfigList = [
+    {
+        id: 'layout-config',
+        label: 'Layout Configuration',
+        icon: LayoutTemplate,
+        pathname: "/settings/layout-config"
     },
 ]

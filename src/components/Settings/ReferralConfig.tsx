@@ -181,7 +181,7 @@ const ReferralConfig = () => {
     };
 
     return (
-        <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+        <div className=" bg-blue-50 py-3 px-4 lg:px-6">
             <div className="mb-3">
                 <SettingsTabs />
 
@@ -190,7 +190,7 @@ const ReferralConfig = () => {
                         {/* Table Header */}
                         <div className="p-4 border-b border-gray-200">
                             <div className="flex justify-between items-center gap-3">
-                                <div className="font-semibold">Referral List</div>
+                                <div className="font-semibold text-lg">Referral List</div>
                                 <div className="flex gap-2 items-center">
                                     <div className="relative">
                                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
@@ -299,7 +299,7 @@ const ReferralConfig = () => {
 
                     {/* Right Side - Form */}
                     <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%]">
-                        <h2 className="text-xl font-semibold text-black mb-3">
+                        <h2 className="text-lg font-semibold text-black mb-3">
                             {editingId ? 'Edit Referral' : 'Referral Configuration'}
                         </h2>
 

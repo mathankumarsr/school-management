@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { Settings, Building2, GraduationCap, Users, Book, UserPlus, MapPin, FileText, Award, Activity, Calendar, MessageSquare, DollarSign, Shield, User, Globe, ChevronRight, Save, X, Home } from 'lucide-react';
+import React from 'react';
+import { Users, LayoutTemplate } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { AdmissionConfigList, SchoolConfigList } from '../../utils/constant';
 import { useDispatch } from 'react-redux';
 import { updateSetting } from '../../features/settingsSlice';
-
-type ModalType = 'school-config' | 'teacher-config' | 'class-config' | 'subject-config' | 'referral-config' | 'classroom-config' | 'exam-config' | 'certificates-config' | 'activities-config' | 'attendance-config' | 'message-config' | 'fees-config' | 'admission-config' | 'staff-config' | 'security-config' | 'api-config';
 
 interface ConfigCardProps {
   icon: React.ComponentType<{ className?: string }>;
@@ -13,31 +11,17 @@ interface ConfigCardProps {
   onClick: () => void;
 }
 
-interface ModalProps {
-  title: string;
-  children: React.ReactNode;
-}
-
-interface FormFieldProps {
-  label: string;
-  type?: string;
-  placeholder?: string;
-  options?: string[];
-}
-
 const SettingHome = () => {
-  const [activeModal, setActiveModal] = useState<ModalType | null>(null);
   const navigate = useNavigate()
   const dispatch = useDispatch();
-
-  const openModal = (modalType: ModalType) => {
-    setActiveModal(modalType);
-  };
 
   const ConfigCard: React.FC<ConfigCardProps> = ({ icon: Icon, title, onClick }) => (
     <div
       onClick={onClick}
-      className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 min-h-[140px] flex flex-col items-center justify-center text-center"
+      className="bg-white rounded-lg p-6 border border-gray-200 
+         shadow-md hover:shadow-lg transition-shadow duration-300 
+         cursor-pointer transform hover:-translate-y-1 
+         min-h-[140px] flex flex-col items-center justify-center text-center"
     >
       <div className="bg-gray-100 p-4 rounded-lg mb-3">
         <Icon className="w-8 h-8 text-gray-600" />
@@ -52,7 +36,7 @@ const SettingHome = () => {
   }
 
   return (
-    <div className="flex-1 px-8 py-8">
+    <div className="flex-1 px-8 py-8 bg-blue-50">
       {/* School Configuration Section */}
       <section className="mb-12">
         <h2 className="text-lg font-semibold text-gray-800 mb-6">School Configuration</h2>
@@ -127,7 +111,7 @@ const SettingHome = () => {
 
       {/* Fees and Admission Configuration */}
       <section className="mb-12">
-        <h2 className="text-lg font-semibold text-gray-800 mb-6">Fees and Admission Configuration</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-6">Fees Configuration</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {AdmissionConfigList.map((config) => (
             <ConfigCard
@@ -152,23 +136,16 @@ const SettingHome = () => {
           />
         </div>
       </section>
-
-      {/* Security and Privacy Configuration */}
-      {/* <section className="mb-12">
-        <h2 className="text-lg font-semibold text-gray-800 mb-6">Security and Privacy Configuration</h2>
+      <section className="mb-12">
+        <h2 className="text-lg font-semibold text-gray-800 mb-6">Layout Configuration</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <ConfigCard
-            icon={Shield}
-            title="Security Configuration"
-            onClick={() => navigate('security-config')}
-          />
-          <ConfigCard
-            icon={Globe}
-            title="API Configuration"
-            onClick={() => navigate('api-config')}
+            icon={LayoutTemplate}
+            title="Layout Configuration"
+            onClick={() => handleSettingsClick("layoutConfig", "layout-config")}
           />
         </div>
-      </section> */}
+      </section>
     </div>
   );
 };

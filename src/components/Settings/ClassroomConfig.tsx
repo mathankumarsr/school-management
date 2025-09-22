@@ -59,7 +59,7 @@ const ClassroomConfig = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedClassrooms = filteredClassrooms.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -120,7 +120,7 @@ const ClassroomConfig = () => {
     handleClear();
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData({
       class: item.class,
       classNumber: item.classNumber,
@@ -130,7 +130,7 @@ const ClassroomConfig = () => {
     setEditingId(item.id);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: any) => {
     if (window.confirm('Are you sure you want to delete this classroom configuration?')) {
       setClassrooms(prev => prev.filter(item => item.id !== id));
       // Reset to page 1 if current page becomes empty
@@ -163,7 +163,7 @@ const ClassroomConfig = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
@@ -173,7 +173,7 @@ const ClassroomConfig = () => {
   }, [searchTerm]);
 
   return (
-    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
       <div className="mb-3">
         <SettingsTabs />
 
@@ -182,7 +182,7 @@ const ClassroomConfig = () => {
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-center gap-3">
-                <div className="font-semibold">Classroom Configuration</div>
+                <div className="font-semibold text-lg">Classroom Configuration</div>
                 <div className="flex gap-2 items-center">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
@@ -298,7 +298,7 @@ const ClassroomConfig = () => {
 
           {/* Right Side - Form */}
           <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%]">
-            <h2 className="text-xl font-semibold text-black mb-3">
+            <h2 className="text-lg font-semibold text-black mb-3">
               {editingId ? 'Edit Classroom' : 'Classroom Configuration'}
             </h2>
 

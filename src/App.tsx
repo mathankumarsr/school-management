@@ -11,7 +11,7 @@ import StudentProfile from "./components/StudentProfile";
 import SettingHome from "./components/Settings/SettingHome";
 import EmployeeConfig from "./components/Settings/EmployeeConfig";
 import SchoolConfig from "./components/Settings/SchoolConfig";
-import SettingClass from "./components/Settings/SettingClass";
+import SettingClass from "./components/Settings/ClassConfig.tsx";
 import SubjectConfig from "./components/Settings/SubjectConfig";
 import ReferralConfig from "./components/Settings/ReferralConfig";
 import MessageConfig from "./components/Settings/MessageConfig";
@@ -57,7 +57,7 @@ function App() {
           <Route path="settings/user-details" element={<UserAccess from={"userDetails"}/>} />
           <Route path="settings/module-access" element={<UserAccess from={"moduleAccess"}/>} />
           <Route path="settings/screen-access" element={<UserAccess from={"screenAccess"} />} />
-          <Route path="layout-config" element={<LayoutConfig />} />
+          <Route path="settings/layout-config" element={<LayoutConfig />} />
           <Route path="employees" element={<Employees />} />
           <Route path="employee-profile1" element={<EmployeeProfile1 />} />
           <Route path="employee-profile2" element={<EmployeeProfile2 />} />

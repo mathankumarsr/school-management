@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Search, Download, Edit, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import SettingsTabs from './SettingsTabs';
 
@@ -61,7 +61,7 @@ const FeesConfig = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedFees = filteredFees.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData(prev => {
       const newData = { ...prev, [field]: value };
 
@@ -111,7 +111,7 @@ const FeesConfig = () => {
 
     if (editingId) {
       // Edit existing fee
-      setFees(prev => prev.map(item =>
+      setFees((prev: any) => prev.map((item: any) =>
         item.id === editingId
           ? {
             ...item,
@@ -138,13 +138,13 @@ const FeesConfig = () => {
         year: formData.year,
         amount: parseInt(formData.amount)
       };
-      setFees(prev => [...prev, newFee]);
+      setFees((prev: any) => [...prev, newFee]);
     }
 
     handleClear();
   };
 
-  const handleEdit = (item) => {
+  const handleEdit = (item: any) => {
     setFormData({
       class: item.class,
       feeName: item.feeName,
@@ -157,7 +157,7 @@ const FeesConfig = () => {
     setEditingId(item.id);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     if (window.confirm('Are you sure you want to delete this fee configuration?')) {
       setFees(prev => prev.filter(item => item.id !== id));
     }
@@ -185,11 +185,11 @@ const FeesConfig = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const getFeeTypeDisplay = (item) => {
+  const getFeeTypeDisplay = (item: any) => {
     if (item.feeType === 'Term' && item.term) return `${item.feeType} ${item.term}`;
     if (item.feeType === 'Monthly' && item.month) return item.month;
     if (item.feeType === 'Yearly' && item.year) return item.year;
@@ -197,7 +197,7 @@ const FeesConfig = () => {
   };
 
   return (
-    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
       <div className="mb-3">
         <SettingsTabs />
 
@@ -206,7 +206,7 @@ const FeesConfig = () => {
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-center gap-3">
-                <div className="font-semibold">Fees List</div>
+                <div className="font-semibold text-lg">Fees List</div>
                 <div className="flex gap-2 items-center">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
@@ -302,12 +302,12 @@ const FeesConfig = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%] h-auto xl:h-[71vh] overflow-y-auto scrollbar-hide">
-            <h2 className="text-xl font-semibold text-black mb-6">
+          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%]">
+            <h2 className="text-lg font-semibold text-black mb-3">
               {editingId ? 'Edit Fee' : 'Fee Configuration'}
             </h2>
 
-            <div className="flex flex-row xl:flex-col flex-wrap gap-4 xl:gap-3">
+            <div className="flex flex-row xl:flex-col flex-wrap xl:flex-nowrap gap-4 xl:gap-3 h-auto xl:h-[47vh] overflow-y-auto scrollbar-hide">
               {/* Class Dropdown */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -425,22 +425,20 @@ const FeesConfig = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
                 />
               </div>
-
-              {/* Action Buttons */}
-              <div className="flex gap-3 pt-4">
-                <button
-                  onClick={handleClear}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
-                >
-                  Clear
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
-                >
-                  {editingId ? 'Update' : 'Add'}
-                </button>
-              </div>
+            </div>
+            <div className="flex gap-3 pt-4">
+              <button
+                onClick={handleClear}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+              >
+                {editingId ? 'Update' : 'Add'}
+              </button>
             </div>
           </div>
         </div>

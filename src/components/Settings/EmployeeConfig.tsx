@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Edit, Trash2, Plus, Download, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import SettingsTabs from './SettingsTabs';
 
@@ -34,7 +34,7 @@ interface EmployeeFormData {
   esi: string;
 }
 
-const EmployeeConfig: React.FC = () => {
+const EmployeeConfig = () => {
   const [employees, setEmployees] = useState<Employee[]>([
     {
       id: 1,
@@ -173,7 +173,7 @@ const EmployeeConfig: React.FC = () => {
     }
   };
 
-  const cancelEdit = () => {
+  const handleClear = () => {
     setEditingId(null);
     setFormData({
       name: '',
@@ -190,16 +190,6 @@ const EmployeeConfig: React.FC = () => {
       esi: ''
     });
   };
-
-  interface Employee {
-    id: string;
-    sno: number;
-    registerNumber: string;
-    name: string;
-    role: string;
-    salary: number;
-    status: "active" | "inactive";
-  }
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -242,7 +232,7 @@ const EmployeeConfig: React.FC = () => {
 
 
   return (
-    <div className=" bg-gray-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
       <div className="mb-3">
         <SettingsTabs />
 
@@ -252,7 +242,7 @@ const EmployeeConfig: React.FC = () => {
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div className="font-semibold">Employee List</div>
+                <div className="font-semibold text-lg">Employee List</div>
                 <div className="flex gap-2 items-center">
                   <div className="relative">
                     <Search
@@ -287,7 +277,7 @@ const EmployeeConfig: React.FC = () => {
             <div className="overflow-auto scrollbar-hide h-[47.5vh]">
               {paginatedEmployees.length > 0 ? (
                 <table className="w-full">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-blue-50">
                     <tr>
                       <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                         S.No
@@ -316,7 +306,7 @@ const EmployeeConfig: React.FC = () => {
                     {paginatedEmployees.map((employee, index) => (
                       <tr
                         key={employee.id}
-                        className="hover:bg-gray-50 transition-colors"
+                        className="hover:bg-blue-50 transition-colors"
                       >
                         <td className="px-4 py-3 text-sm text-gray-900">
                           {startIndex + index + 1}
@@ -404,14 +394,14 @@ const EmployeeConfig: React.FC = () => {
           </div>
 
           {/* Right Side - Employee Form */}
-          <div className="bg-white rounded-lg shadow-md p-6 w-[35%] h-[71vh] overflow-y-auto scrollbar-hide">
-            <div className="mb-6">
+          <div className="bg-white rounded-lg shadow-md p-6 w-[35%]">
+            <div className="mb-2">
               <h3 className="text-lg font-semibold text-gray-800">
                 {editingId ? 'Edit Employee' : 'Add New Employee'}
               </h3>
             </div>
 
-            <div className="space-y-6">
+            <div className="flex flex-row xl:flex-col flex-wrap xl:flex-nowrap gap-4 xl:gap-3 h-auto xl:h-[47vh] overflow-y-auto scrollbar-hide">
               {/* Name Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -596,24 +586,21 @@ const EmployeeConfig: React.FC = () => {
               )}
 
               {/* Form Buttons */}
-              <div className="flex space-x-4">
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  {editingId ? 'Update Employee' : 'Add Employee'}
-                </button>
-                {editingId && (
-                  <button
-                    type="button"
-                    onClick={cancelEdit}
-                    className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-                  >
-                    Cancel
-                  </button>
-                )}
-              </div>
+
+            </div>
+            <div className="flex gap-3 pt-4">
+                        <button
+                                onClick={handleClear}
+                                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
+                            >
+                                Clear
+                            </button>
+                            <button
+                                onClick={handleSubmit}
+                                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+                            >
+                                {editingId ? 'Update' : 'Add'}
+                            </button>
             </div>
           </div>
         </div>
