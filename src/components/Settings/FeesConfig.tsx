@@ -197,16 +197,16 @@ const FeesConfig = () => {
   };
 
   return (
-    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6 h-full w-full">
       <div className="mb-3">
         <SettingsTabs />
 
-        <div className="flex flex-col-reverse xl:flex-row gap-2 w-full mt-3">
+        <div className="flex flex-col-reverse xl:flex-row gap-3 w-full mt-3">
           <div className=" bg-white rounded-lg shadow-md  w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-center gap-3">
-                <div className="font-semibold text-lg">Fees List</div>
+                <div className="hidden md:block font-semibold text-lg">Fees List</div>
                 <div className="flex gap-2 items-center">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
@@ -230,7 +230,7 @@ const FeesConfig = () => {
             </div>
 
             {/* Table */}
-            <div className="overflow-auto scrollbar-hide h-[47.5vh]">
+            <div className="overflow-auto scrollbar-hide h-auto md:h-[47.5vh] 2xl:h-[64vh]">
               <table className="w-full">
                 <thead className="bg-blue-50 sticky top-0">
                   <tr>

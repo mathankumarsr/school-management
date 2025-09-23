@@ -59,7 +59,7 @@ const LayoutConfig = () => {
       <div className="mb-3 sticky top-0">
         <SettingsTabs />
       </div>
-      <div className="flex flex-col md:flex-row w-full gap-2 h-[71vh] overflow-auto scrollbar-hide">
+      <div className="flex flex-col md:flex-row w-full gap-3 h-[71vh] overflow-auto scrollbar-hide">
         {/* Left Side Preview */}
         <div className="flex-1 w-[65%]">
           {/* Mandatory Fields Preview */}

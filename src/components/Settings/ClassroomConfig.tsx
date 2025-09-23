@@ -173,16 +173,16 @@ const ClassroomConfig = () => {
   }, [searchTerm]);
 
   return (
-    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6 h-full w-full">
       <div className="mb-3">
         <SettingsTabs />
 
-        <div className="flex flex-col-reverse xl:flex-row gap-2 w-full mt-3">
+        <div className="flex flex-col-reverse xl:flex-row gap-3 w-full mt-3">
           <div className=" bg-white rounded-lg shadow-md w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-center gap-3">
-                <div className="font-semibold text-lg">Classroom Configuration</div>
+                <div className="hidden md:block font-semibold text-lg">Classroom Configuration</div>
                 <div className="flex gap-2 items-center">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={16} />
@@ -206,7 +206,7 @@ const ClassroomConfig = () => {
             </div>
 
             {/* Table */}
-            <div className="overflow-auto scrollbar-hide h-[47.5vh]">
+            <div className="overflow-auto scrollbar-hide h-auto md:h-[47.5vh] 2xl:h-[64vh]">
               <table className="w-full">
                 <thead className="bg-blue-50 sticky top-0">
                   <tr>
@@ -297,14 +297,14 @@ const ClassroomConfig = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%]">
+          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%] flex flex-col">
             <h2 className="text-lg font-semibold text-black mb-3">
               {editingId ? 'Edit Classroom' : 'Classroom Configuration'}
             </h2>
 
             <div className="flex flex-row xl:flex-col flex-wrap xl:flex-nowrap gap-4 xl:gap-3 h-auto xl:h-[47vh] overflow-y-auto scrollbar-hide">
               {/* Class Input */}
-              <div>
+              <div className=''>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Class <span className="text-red-500">*</span>
                 </label>
@@ -371,20 +371,20 @@ const ClassroomConfig = () => {
               {/* Action Buttons */}
 
             </div>
-                          <div className="flex gap-3 pt-4">
-                <button
-                  onClick={handleClear}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
-                >
-                  Clear
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
-                >
-                  {editingId ? 'Update' : 'Add'}
-                </button>
-              </div>
+            <div className="flex gap-3 pt-4 mt-auto">
+              <button
+                onClick={handleClear}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+              >
+                {editingId ? 'Update' : 'Add'}
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -98,7 +98,7 @@ const UserAccess: React.FC<UserAccessProps> = ({ from = '' }) => {
 };
 
   return (
-    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6 h-full w-full">
       <div className="mb-3">
         <SettingsTabs />
       </div>

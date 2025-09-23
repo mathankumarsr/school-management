@@ -11,13 +11,13 @@ const SettingsTabs = () => {
     const tabsList = selectedSettingSection === "admissionConfig" ? AdmissionConfigList : selectedSettingSection === "userConfig" ? UserConfigList : selectedSettingSection === "layoutConfig" ? LayoutConfigList : SchoolConfigList
 
     return (
-        <div className="sticky top-0">
+        <div className="sticky top-0 z-20">
             <div className="">
                 <div className="bg-white rounded-lg shadow-md">
                     {/* Header */}
                     <div className="flex flex-col">
                         <div className="border-b border-gray-200 flex items-center px-4">
-                            <MoveLeft className='w-6 h-6 cursor-pointer' onClick={() => navigate("/settings")}/>
+                            <MoveLeft className='min-w-6 min-h-6 cursor-pointer' onClick={() => navigate("/settings")}/>
                             <nav className="flex space-x-6 overflow-x-auto scrollbar-hide px-4">
                                 {tabsList.map((tab) => {
                                     const IconComponent = tab.icon;

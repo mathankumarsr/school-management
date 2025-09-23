@@ -232,17 +232,17 @@ const EmployeeConfig = () => {
 
 
   return (
-    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6 h-full w-full">
       <div className="mb-3">
         <SettingsTabs />
 
-        <div className="flex gap-2 w-full mt-3">
+        <div className="flex flex-col-reverse xl:flex-row gap-3 w-full mt-3">
           {/* Left Side - Employee Table */}
           <div className="lg:col-span-2 bg-white rounded-lg shadow-md  w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div className="font-semibold text-lg">Employee List</div>
+                <div className="hidden md:block font-semibold text-lg">Employee List</div>
                 <div className="flex gap-2 items-center">
                   <div className="relative">
                     <Search
@@ -274,7 +274,7 @@ const EmployeeConfig = () => {
             </div>
 
             {/* Table */}
-            <div className="overflow-auto scrollbar-hide h-[47.5vh]">
+            <div className="overflow-auto scrollbar-hide h-auto md:h-[47.5vh] 2xl:h-[64vh]">
               {paginatedEmployees.length > 0 ? (
                 <table className="w-full">
                   <thead className="bg-blue-50">
@@ -394,7 +394,7 @@ const EmployeeConfig = () => {
           </div>
 
           {/* Right Side - Employee Form */}
-          <div className="bg-white rounded-lg shadow-md p-6 w-[35%]">
+          <div className="bg-white rounded-lg shadow-md p-6 w-full md:w-[35%] flex flex-col">
             <div className="mb-2">
               <h3 className="text-lg font-semibold text-gray-800">
                 {editingId ? 'Edit Employee' : 'Add New Employee'}
@@ -588,19 +588,19 @@ const EmployeeConfig = () => {
               {/* Form Buttons */}
 
             </div>
-            <div className="flex gap-3 pt-4">
-                        <button
-                                onClick={handleClear}
-                                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
-                            >
-                                Clear
-                            </button>
-                            <button
-                                onClick={handleSubmit}
-                                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
-                            >
-                                {editingId ? 'Update' : 'Add'}
-                            </button>
+            <div className="flex gap-3 pt-4 mt-auto">
+              <button
+                onClick={handleClear}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+              >
+                {editingId ? 'Update' : 'Add'}
+              </button>
             </div>
           </div>
         </div>

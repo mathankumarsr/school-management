@@ -16,13 +16,16 @@ import {
     Search,
     Bell,
     MessageSquare,
-    X
+    X,
+    Menu
 } from 'lucide-react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 
 const Layout = () => {
     const navigate = useNavigate()
+    const location = useLocation()
+    const [isOpen, setIsOpen] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
     const notifications = [
         { id: 1, title: 'New Student Registration', message: 'John Doe has completed admission process', time: '2 min ago', unread: true },
@@ -46,12 +49,10 @@ const Layout = () => {
         { icon: Ticket, label: 'Tickets', path: '/tickets' }
     ];
 
-
-
     return (
         <div className="flex h-screen bg-gray-50">
             {/* Sidebar */}
-            <div className=" bg-blue-600 text-white p-6 overflow-auto scrollbar-hide">
+            <div className="hidden md:block bg-blue-600 text-white p-6 overflow-auto scrollbar-hide w-auto 2xl:w-[250px]">
                 <div className="flex items-center mb-8">
                     <div className="w-8 h-8 bg-white rounded-full mr-3"></div>
                     <span className="text-xl font-bold">SV SCHOOL</span>
@@ -61,7 +62,7 @@ const Layout = () => {
                     {sidebarItems.map((item, index) => (
                         <div
                             key={index}
-                            className={`flex items-center space-x-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${(item.path === window.location.pathname) ? 'bg-white text-blue-600' : 'hover:bg-blue-500'
+                            className={`flex items-center space-x-3 px-4 2xl:px-8 py-3 rounded-xl cursor-pointer transition-colors ${location.pathname === item.path || (location.pathname?.includes(item.path) && item.path !== "/") ? 'bg-white text-blue-600' : 'hover:bg-blue-500'
                                 }`}
                             onClick={() => navigate(item.path)}
                         >
@@ -72,12 +73,60 @@ const Layout = () => {
                 </nav>
             </div>
 
+            {isOpen && (
+                <div className="fixed inset-0 z-50 flex">
+                    {/* Overlay */}
+                    <div
+                        className="fixed inset-0 bg-black/40"
+                        onClick={() => setIsOpen(false)}
+                    />
+                    {/* Drawer content */}
+                    <div className="relative bg-blue-600 text-white w-64 p-6 z-50">
+                        <button
+                            className="absolute top-4 right-4"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <X size={24} />
+                        </button>
+
+                        <div className="flex items-center mb-8">
+                            <div className="w-8 h-8 bg-white rounded-full mr-3"></div>
+                            <span className="text-xl font-bold">SV SCHOOL</span>
+                        </div>
+
+                        <nav className="space-y-2">
+                            {sidebarItems.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className={`flex items-center space-x-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${location.pathname === item.path ||
+                                        (location.pathname?.includes(item.path) &&
+                                            item.path !== "/")
+                                        ? "bg-white text-blue-600"
+                                        : "hover:bg-blue-500"
+                                        }`}
+                                    onClick={() => {
+                                        navigate(item.path);
+                                        setIsOpen(false);
+                                    }}
+                                >
+                                    <item.icon size={20} />
+                                    <span className="font-medium">{item.label}</span>
+                                </div>
+                            ))}
+                        </nav>
+                    </div>
+                </div>
+            )}
+
             {/* Main Content */}
             <div className="flex-1 flex flex-col overflow-auto">
                 {/* Header */}
                 <header className="bg-white border-b border-gray-200 px-6 py-4">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
+                                            <button className='block md:hidden' onClick={() => setIsOpen(true)}>
+                        <Menu size={24} />
+                    </button>
+                        <div className="hidden md:flex items-center space-x-4">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                                 <input
@@ -89,7 +138,7 @@ const Layout = () => {
                         </div>
 
                         <div className="flex items-center space-x-4">
-                            <span className="text-gray-600 font-medium">Welcome Back</span>
+                            <span className="hidden lg:block text-gray-600 font-medium">Welcome Back</span>
                             <div className="relative">
                                 <button
                                     onClick={() => setShowNotifications(!showNotifications)}

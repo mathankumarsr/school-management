@@ -127,16 +127,16 @@ const SettingClass = () => {
   };
 
   return (
-    <div className=" bg-blue-50 py-3 px-4 lg:px-6">
+    <div className=" bg-blue-50 py-3 px-4 lg:px-6 h-full w-full">
       <div className="mb-3">
         <SettingsTabs />
-        <div className="flex flex-col-reverse xl:flex-row gap-2 w-full mt-3">
+        <div className="flex flex-col-reverse xl:flex-row gap-3 w-full mt-3">
           {/* Left Side - Table */}
           <div className=" bg-white rounded-lg shadow-md w-full xl:w-[65%]">
             {/* Table Header */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div className='font-semibold text-lg'>Class List</div>
+                <div className='hidden md:block font-semibold text-lg'>Class List</div>
                 <div className='flex gap-2 items-center'>
                   <div className="relative">
                     <Search
@@ -168,9 +168,9 @@ const SettingClass = () => {
             </div>
 
             {/* Table */}
-            <div className="overflow-auto h-[47.5vh] scrollbar-hide">
+            <div className="overflow-auto h-auto md:h-[47.5vh] 2xl:h-[64vh] scrollbar-hide">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-blue-50">
                   <tr>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">S.No</th>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Class</th>
@@ -181,7 +181,7 @@ const SettingClass = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {paginatedClasses.map((item, index) => (
-                    <tr key={item.id} className="hover:bg-gray-50">
+                    <tr key={item.id} className="hover:bg-blue-50">
                       <td className="px-4 py-3 text-sm text-gray-900">{startIndex + index + 1}</td>
                       <td className="px-4 py-3 text-sm text-gray-900">{item.class}</td>
                       <td className="px-4 py-3 text-sm text-gray-900">{item.section}</td>
@@ -238,7 +238,7 @@ const SettingClass = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%]">
+          <div className="bg-white rounded-lg shadow-md p-6 w-full xl:w-[35%] flex flex-col">
             <h2 className="text-lg font-semibold text-gray-800 mb-6">
               {editingId ? 'Edit Class' : 'Add New Class'}
             </h2>
@@ -292,22 +292,22 @@ const SettingClass = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
+            </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-3 pt-4">
-                <button
-                  onClick={handleClear}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Clear
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  {editingId ? 'Update' : 'Add'}
-                </button>
-              </div>
+            {/* Action Buttons */}
+            <div className="flex gap-3 pt-4 mt-auto">
+              <button
+                onClick={handleClear}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                {editingId ? 'Update' : 'Add'}
+              </button>
             </div>
           </div>
         </div>

@@ -327,12 +327,12 @@ const SchoolConfig = () => {
         <SettingsTabs />
       </div>
 
-      <div className="space-y-8 h-[74vh] xl:h-[73vh] overflow-auto scrollbar-hide">
+      <div className="space-y-8 h-[83vh] md:h-[74vh] xl:h-[73vh] overflow-auto scrollbar-hide">
         {/* Logo Upload Section */}
 
 
         {/* Main Configuration Form */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
           {/* Basic Information */}
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-md">
             <div className="flex items-center space-x-2 mb-6">
@@ -560,7 +560,7 @@ const SchoolConfig = () => {
           </div>
 
           {/* Contact & Academic Information */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             {/* Contact Information */}
             <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-md">
               <div className="flex items-center space-x-2 mb-6">
@@ -683,7 +683,7 @@ const SchoolConfig = () => {
 
         {/* Form Actions */}
         <div className="bg-white border-t border-gray-200 sticky bottom-0 px-6 py-2 flex items-center justify-between shadow-md rounded-lg">
-          <div className="flex items-center space-x-4 text-sm text-gray-500">
+          <div className="hidden md:flex items-center space-x-4 text-sm text-gray-500">
             <span>* Required fields</span>
             <span className="text-gray-300">|</span>
             <span>Last updated: {new Date().toLocaleDateString()}</span>
