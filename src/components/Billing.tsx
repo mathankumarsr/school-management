@@ -1,12 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, User, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { CheckCircle, User } from 'lucide-react';
+
+interface sampleStudentDetailsType {
+    totalFee: number;
+    paid: number;
+    pending: number;
+    concession: number;
+    quota: string;
+    name: string;
+    rollNo: string;
+    parentName: string;
+    academicYear: string;
+    gender: string;
+    studentType: string;
+    mark: string;
+    category: string;
+    transport: string;
+    status: string;
+    rank: string;
+}
+
+type Standard =
+    | "LKG" | "UKG"
+    | "1st" | "2nd" | "3rd" | "4th" | "5th" | "6th"
+    | "7th" | "8th" | "9th" | "10th" | "11th" | "12th";
+
 
 const Billing = () => {
-    const [selectedStandard, setSelectedStandard] = useState('');
+    const [selectedStandard, setSelectedStandard] = useState<Standard | null>(null);
     const [selectedStudent, setSelectedStudent] = useState('');
-    const [studentDetails, setStudentDetails] = useState(null);
-    const [studentData, setStudentData] = useState(null);
-    const [feeData, setFeeData] = useState([]);
+    const [studentDetails, setStudentDetails] = useState<sampleStudentDetailsType | null>(null);
+    type FeeTerm = { total: number; pending: number; amount: string };
+    type FeeDataType = {
+        id: number;
+        checked: boolean;
+        feeType: string;
+        term1: FeeTerm;
+        term2: FeeTerm;
+        term3: FeeTerm;
+    };
+    const [feeData, setFeeData] = useState<FeeDataType[]>([]);
     const [paymentMode, setPaymentMode] = useState({
         cash: false,
         card: false,
@@ -104,17 +137,18 @@ const Billing = () => {
         }
     }, [selectedStudent, selectedStandard]);
 
-    const handleStudentChange = (student) => {
+    const handleStudentChange = (student: string) => {
+        console.log(referenceNumber, "referenceNumber")
         setSelectedStudent(student);
     };
 
-    const handleCheckboxChange = (id) => {
+    const handleCheckboxChange = (id: number) => {
         setFeeData(prev => prev.map(item =>
             item.id === id ? { ...item, checked: !item.checked } : item
         ));
     };
 
-    const handleAmountChange = (id, term, value) => {
+    const handleAmountChange = (id: number, term: 'term1' | 'term2' | 'term3', value: string) => {
         setFeeData(prev => prev.map(item =>
             item.id === id
                 ? { ...item, [term]: { ...item[term], amount: value } }
@@ -154,40 +188,45 @@ const Billing = () => {
     };
 
     const handleClear = () => {
-        setSelectedStandard('');
+        setSelectedStandard(null);
         setSelectedStudent('');
         setStudentDetails(null);
         setFeeData([]);
-        setPaymentMode('');
+        setPaymentMode({
+            cash: false,
+            card: false,
+            upi: false,
+            bankTransfer: false
+        });
         setReferenceNumber('');
         setOverallConcession(0);
         setRoundOff(0);
     };
 
-    const handleReceive = async () => {
-        // Simulate API call
-        try {
-            const paymentData = {
-                standard: selectedStandard,
-                student: selectedStudent,
-                feeData: feeData.filter(item => item.checked),
-                total: calculateOverallTotal(),
-                paymentMode,
-                referenceNumber
-            };
+    // const handleReceive = async () => {
+    //     // Simulate API call
+    //     try {
+    //         const paymentData = {
+    //             standard: selectedStandard,
+    //             student: selectedStudent,
+    //             feeData: feeData.filter(item => item.checked),
+    //             total: calculateOverallTotal(),
+    //             paymentMode,
+    //             referenceNumber
+    //         };
 
-            console.log('Payment data:', paymentData);
+    //         console.log('Payment data:', paymentData);
 
-            // Simulate API delay
-            setTimeout(() => {
-                setShowSuccess(true);
-                setTimeout(() => setShowSuccess(false), 3000);
-            }, 1000);
+    //         // Simulate API delay
+    //         setTimeout(() => {
+    //             setShowSuccess(true);
+    //             setTimeout(() => setShowSuccess(false), 3000);
+    //         }, 1000);
 
-        } catch (error) {
-            console.error('Payment failed:', error);
-        }
-    };
+    //     } catch (error) {
+    //         console.error('Payment failed:', error);
+    //     }
+    // };
 
     return (
         <div className="min-h-screen bg-gray-50 p-4">
@@ -204,8 +243,8 @@ const Billing = () => {
                                 Standard
                             </label>
                             <select
-                                value={selectedStandard}
-                                onChange={(e) => setSelectedStandard(e.target.value)}
+                                value={selectedStandard ?? ""}
+                                onChange={(e) => setSelectedStandard(e.target.value as Standard)}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Select Standard</option>
@@ -226,7 +265,7 @@ const Billing = () => {
                                 disabled={!selectedStandard}
                             >
                                 <option value="">Select Student</option>
-                                {selectedStandard && studentsData[selectedStandard]?.map(student => (
+                                {selectedStandard && studentsData[selectedStandard]?.map((student: any) => (
                                     <option key={student} value={student}>{student}</option>
                                 ))}
                             </select>
@@ -247,10 +286,10 @@ const Billing = () => {
                                 <div className="text-sm w-[70%] flex gap-5 items-center">
                                     <div className='space-y-2 w-[50%]'>
                                         <div className="flex justify-between"><span className="font-medium">Academic Year:</span> <span>{studentDetails.academicYear}</span></div>
-                                                                                <div className="flex justify-between"><span className="font-medium">Parent:</span> <span>{studentDetails.parentName}</span></div>
+                                        <div className="flex justify-between"><span className="font-medium">Parent:</span> <span>{studentDetails.parentName}</span></div>
                                         <div className="flex justify-between"><span className="font-medium">Gender:</span> <span>{studentDetails.gender}</span></div>
                                         <div className="flex justify-between"><span className="font-medium">Student Type:</span> <span>{studentDetails.studentType}</span></div>
-                                                                                <div className="flex justify-between"><span className="font-medium">Phone:</span> <span>{studentDetails.parentName}</span></div>
+                                        <div className="flex justify-between"><span className="font-medium">Phone:</span> <span>{studentDetails.parentName}</span></div>
                                     </div>
                                     <div className='space-y-2 w-[50%]'>
                                         <div className="flex justify-between"><span className="font-medium">Mark:</span> <span>{studentDetails.mark}</span></div>
@@ -289,9 +328,9 @@ const Billing = () => {
                                     <tr>
                                         <th className="border border-gray-300 px-4 py-2 text-left">✓</th>
                                         <th className="border border-gray-300 px-4 py-2 text-left">Fee Type</th>
-                                        <th className="border border-gray-300 px-4 py-2 text-center" colSpan="3">Term 1</th>
-                                        <th className="border border-gray-300 px-4 py-2 text-center" colSpan="3">Term 2</th>
-                                        <th className="border border-gray-300 px-4 py-2 text-center" colSpan="3">Term 3</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center" colSpan={3}>Term 1</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center" colSpan={3}>Term 2</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center" colSpan={3}>Term 3</th>
                                     </tr>
                                     <tr className="bg-gray-50">
                                         <th className="border border-gray-300 px-4 py-2"></th>

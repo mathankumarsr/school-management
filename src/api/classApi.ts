@@ -1,4 +1,3 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { ClassData, CreateClassRequest, UpdateClassRequest, ApiResponse } from '../utils/types';
 import { apiSlice } from "./apiSlice";
 
@@ -36,7 +35,6 @@ export const classApi = apiSlice.injectEndpoints({
     }),
     getClassById: builder.query<ApiResponse<ClassData>, string>({
       query: (id) => `/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Class', id }],
     }),
     createClass: builder.mutation<ApiResponse<ClassData>, CreateClassRequest>({
       query: (newClass) => ({
@@ -52,7 +50,6 @@ export const classApi = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: patch,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Class', id }],
     }),
     deleteClass: builder.mutation<ApiResponse<void>, string>({
       query: (id) => ({

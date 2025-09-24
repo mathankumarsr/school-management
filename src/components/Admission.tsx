@@ -9,15 +9,14 @@ import {
   Printer,
   Eye,
 } from 'lucide-react';
-import {  useDeleteAdmissionMutation, useLazyGetAdmissionByIdQuery, useUpdateAdmissionMutation } from '../api/admissionsApi';
+import {  useDeleteAdmissionMutation, useLazyGetAdmissionByIdQuery } from '../api/admissionsApi';
 import { toast } from 'react-toastify';
-import AddNewAdmission from './AddNewAdmission';
 import { useNavigate } from 'react-router-dom';
 
 const Admission = () => {
   const [activeTab, setActiveTab] = useState('preadmission');
   // const { data: studentss = [], isLoading: isGetLoadings, isErrors } = useGetAdmissionsQuery();
-  const students =[]
+  const students: any[] =[]
   const isGetLoading =false
   const isError = false
   const navigate =useNavigate()
@@ -71,6 +70,9 @@ const Admission = () => {
 
   if (isGetLoading) return <p className="text-gray-500">Loading students...</p>;
   if (isError) return <p className="text-red-500">Failed to load students</p>;
+
+  console.log(formData,"formData")
+  console.log(readOnly,"readOnly")
 
   const handleDropdownAction = async (action: string, studentId: number) => {
     setShowDropdown(null);
@@ -131,7 +133,7 @@ const Admission = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {students.map((student, index) => (
+            {students?.length > 0 && students.map((student, index) => (
               <tr key={student.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{index + 1}</td>
                 <td className="border px-4 py-2">{student.admission_number}</td>

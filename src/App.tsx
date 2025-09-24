@@ -23,6 +23,13 @@ import LayoutConfig from "./components/LayoutConfig.tsx";
 import Employees from "./components/Employees";
 import EmployeeProfile1 from "./components/EmployeeProfile1.tsx";
 import EmployeeProfile2 from "./components/EmployeeProfile2.tsx";
+import Exams from "./components/Exams.tsx";
+import TimeTable from "./components/TimeTable.tsx";
+import Syllabus from "./components/Syllabus.tsx";
+import Certificates from "./components/Certificates.tsx";
+import Activities from "./components/Settings/Activities.tsx";
+import Reports from "./components/Settings/Reports.tsx";
+import Tickets from "./components/Settings/Tickets.tsx";
 
 function App() {
   return (
@@ -61,6 +68,13 @@ function App() {
           <Route path="employees" element={<Employees />} />
           <Route path="employee-profile1" element={<EmployeeProfile1 />} />
           <Route path="employee-profile2" element={<EmployeeProfile2 />} />
+          <Route path="exams" element={<Exams />} />
+          <Route path="timeTable" element={<TimeTable />} />
+          <Route path="syllabus" element={<Syllabus />} />
+          <Route path="certificate" element={<Certificates />} />
+          <Route path="activities" element={<Activities />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="tickets" element={<Tickets />} />
           
         </Route>
       </Routes>

@@ -168,6 +168,7 @@ const Employees: React.FC = () => {
 
   const handleEdit = (employee: Employee) => {
     setEditingEmployee(employee);
+    console.log(editingEmployee,"editingEmployee")
   };
 
   const handleDelete = (id: number) => {

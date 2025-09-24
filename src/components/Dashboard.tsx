@@ -1,4 +1,4 @@
-import React, { useState, type ReactNode } from 'react';
+import React, { useEffect, useState, type ReactNode } from 'react';
 import {
     DollarSign,
     Users,
@@ -33,6 +33,10 @@ const Dashboard = () => {
         [19, 20, 21, 22, 23, 24, 25],
         [26, 27, 28, 29, 30, null, null]
     ];
+
+    useEffect(() => {
+        setSelectedMonth("September 2025")
+    })
 
     interface StatCardProps {
         title: string;
