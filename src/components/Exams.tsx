@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit3, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Plus, Edit3 } from 'lucide-react';
 
 interface ExamCard {
   id: string;
