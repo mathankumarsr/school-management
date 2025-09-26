@@ -12,6 +12,7 @@ import {
 import {  useDeleteAdmissionMutation, useLazyGetAdmissionByIdQuery } from '../api/admissionsApi';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Button from './common/Button';
 
 const Admission = () => {
   const [activeTab, setActiveTab] = useState('preadmission');
@@ -120,7 +121,7 @@ const Admission = () => {
     <div className="bg-white rounded-lg shadow-md border border-gray-100 ">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-white">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">S.No</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Admission Number</th>
@@ -238,11 +239,11 @@ const Admission = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-blue-50 p-4">
       {/* Tab Navigation */}
       {!showCreateForm && (
-        <div className="bg-white rounded-lg shadow-sm border mb-6">
-          <div className="border-b">
+        <div className="bg-white rounded-lg shadow-md mb-6">
+          <div className="">
             <nav className="flex space-x-8 px-6" aria-label="Tabs">
               <button
                 onClick={() => setActiveTab('preadmission')}
@@ -279,13 +280,13 @@ const Admission = () => {
       {/* Add New Admission Button */}
       {!showCreateForm && (
         <div className="mb-6">
-          <button
+          <Button
+            variant='primary'
             onClick={() => setShowCreateForm(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+            icon={Plus}
           >
-            <Plus size={20} />
             Add New Admission
-          </button>
+          </Button>
         </div>
       )}
 

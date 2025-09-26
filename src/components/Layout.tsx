@@ -50,9 +50,9 @@ const Layout = () => {
     ];
 
     return (
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen bg-blue-50">
             {/* Sidebar */}
-            <div className="hidden md:block bg-blue-600 text-white p-6 overflow-auto scrollbar-hide w-auto 2xl:w-[250px]">
+            <div className="hidden lg:block bg-blue-600 text-white p-6 overflow-auto scrollbar-hide w-auto 2xl:w-[250px]">
                 <div className="flex items-center mb-8">
                     <div className="w-8 h-8 bg-white rounded-full mr-3"></div>
                     <span className="text-xl font-bold">SV SCHOOL</span>
@@ -121,12 +121,12 @@ const Layout = () => {
             {/* Main Content */}
             <div className="flex-1 flex flex-col overflow-auto">
                 {/* Header */}
-                <header className="bg-white border-b border-gray-200 px-6 py-4">
+                <header className="bg-white border-b border-gray-200 px-6 py-4 shadow-lg">
                     <div className="flex items-center justify-between">
-                                            <button className='block md:hidden' onClick={() => setIsOpen(true)}>
-                        <Menu size={24} />
-                    </button>
-                        <div className="hidden md:flex items-center space-x-4">
+                        <button className='block lg:hidden' onClick={() => setIsOpen(true)}>
+                            <Menu size={24} />
+                        </button>
+                        <div className="hidden lg:flex items-center space-x-4">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                                 <input

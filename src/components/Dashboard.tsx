@@ -47,7 +47,7 @@ const Dashboard = () => {
     }
 
     const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, bgColor }) => (
-        <div className={`${bgColor} rounded-2xl p-6 text-white relative overflow-hidden`}>
+        <div className={`${bgColor} rounded-2xl p-6 text-white relative overflow-hidden shadow-md`}>
             <div className="flex items-center justify-between">
                 <div>
                     <p className="text-white/80 text-sm font-medium">{title}</p>
@@ -74,20 +74,13 @@ const Dashboard = () => {
     );
 
     return (
-        <div className="w-full">
-            {/* Sidebar */}
-
-
-            {/* Main Content */}
-            {/* <div className="flex-1 flex flex-col overflow-hidden"> */}
-
-
+        <div className="w-full bg-blue-50">
             <div className="flex-1 overflow-auto scrollbar-hide">
                 <div className="p-6">
-                    <div className="grid grid-cols-12 gap-6">
+                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 max-w-7xl mx-auto">
                         {/* Stats Cards */}
                         <div className="col-span-8">
-                            <div className="grid grid-cols-4 gap-4 mb-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                                 <StatCard
                                     title="Students"
                                     value="500"
@@ -115,7 +108,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Attendance and Revenue Row */}
-                            <div className="grid grid-cols-3 gap-6 mb-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                                 <ChartCard title="Student attendance">
                                     <div className="space-y-3">
                                         <div className="w-16 h-16 bg-yellow-400 rounded-full mx-auto mb-3 flex items-center justify-center">
@@ -210,7 +203,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Charts Row 2 */}
-                            <div className="grid grid-cols-2 gap-6 mb-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <ChartCard title="Academic Growth">
                                     <div className="h-40 relative">
                                         <svg className="w-full h-full" viewBox="0 0 300 120">
@@ -268,7 +261,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Bottom Charts */}
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <ChartCard title="Budget">
                                     <div className="h-40 relative">
                                         {/* Y-axis labels */}
@@ -335,7 +328,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Pie Charts */}
-                            <div className="grid grid-cols-2 gap-6 mt-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                                 <ChartCard title="Revenue">
                                     <div className="flex items-center justify-between">
                                         <div className="relative w-32 h-32">
@@ -459,9 +452,9 @@ const Dashboard = () => {
                         </div>
 
                         {/* Right Sidebar */}
-                        <div className="col-span-4 space-y-6">
+                        <div className="col-span-8 lg:col-span-4 space-y-6">
                             {/* Calendar */}
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="font-semibold text-gray-800">{selectedMonth}</h3>
                                     <div className="flex items-center space-x-1">
@@ -500,7 +493,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Notice Board */}
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="font-semibold text-gray-800">Notice Board</h3>
                                     <span className="text-sm text-blue-600 cursor-pointer hover:underline">View all</span>
@@ -530,7 +523,7 @@ const Dashboard = () => {
                             </div>
 
                             {/* Messages */}
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="font-semibold text-gray-800">Messages</h3>
                                     <button className="text-gray-400 hover:text-gray-600">

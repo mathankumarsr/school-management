@@ -3,12 +3,11 @@ import { useState, useRef, useEffect, type ChangeEvent } from 'react';
 import { Upload, Save, Loader2, X, Building2, Camera, Phone, Mail, Globe, User, Calendar, MapPin } from 'lucide-react';
 import SettingsTabs from './SettingsTabs';
 
-// Import your RTK Query hooks (replace with actual imports)
 // import {
 //   useGetSchoolConfigQuery,
 //   useUpdateSchoolConfigMutation,
 //   useUploadLogoMutation
-// } from '../api/schoolApi';
+// } from '../../api/schoolApi';
 
 interface SchoolConfigForm {
   schoolName: string;
@@ -75,7 +74,6 @@ const SchoolConfig = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   // Mock RTK Query hooks - Replace with actual imports
   const mockApi: MockApi = {
     data: null,
@@ -102,6 +100,10 @@ const SchoolConfig = () => {
   const { data: schoolConfig, isLoading: isLoadingConfig, error: configError } = mockApi;
   const [updateSchoolConfig, { isLoading: isUpdating }] = mockMutation;
   const [uploadLogo, { isLoading: isUploadingLogo }] = mockMutation;
+
+//   const { data: schoolConfig, isLoading: isLoadingConfig, error: configError, refetch } = useGetSchoolConfigQuery(undefined);
+// const [updateSchoolConfig, { isLoading: isUpdating }] = useUpdateSchoolConfigMutation();
+// const [uploadLogo, { isLoading: isUploadingLogo }] = useUploadLogoMutation();
 
   // Load existing configuration on component mount
   useEffect(() => {
